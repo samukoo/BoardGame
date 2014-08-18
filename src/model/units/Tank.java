@@ -14,8 +14,9 @@ public class Tank extends Unit{
 
 
 	@Override
-	public void move() {
-		
+	public void move(int x, int y) {
+		super.xLocation = x;
+		super.yLocation = y;
 	}
 
 

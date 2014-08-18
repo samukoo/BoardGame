@@ -23,10 +23,9 @@ public class World {
 		createMap();  //Konstruktori kutsuu metodia joka huolehtii maailman luonnista
 	}
 
-public ArrayList<String> loadMap() throws IOException{
+public ArrayList<String> loadMap(String mapFile) throws IOException{
 		
 		//Alustetaan file objektit
-		String mapFile = "src/resources/kartta.txt";
 		File file = new File(mapFile);
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		String content=null;
@@ -39,14 +38,14 @@ public ArrayList<String> loadMap() throws IOException{
 		return charMap;	//palautetaan charMap muuttuja (data tallentuu boardMap muuttujaan, josta aletaan louhimaan lopullinen hexakartta
 	}
 	
-	public void createMap() {
+	public ArrayList<Hex> createMap() {
 		//huom! voisi pilkkoa kahteen metodiin (" " -> "null" omaksi metodiksi)
 		//1. luodaan varasto kartalle
 		ArrayList<String>boardMap = new ArrayList<String>(); //boardmap on tiedostosta ladattu maailman malli
 		
 		//2. try catch blocki, ei jaksa laittaa metodeja heittämään poikkeuksia
 		try {
-			boardMap = loadMap(); //ladataan data boardMap muuttujaan tiedostosta
+			boardMap = loadMap("src/resources/kartta.txt"); //ladataan data boardMap muuttujaan tiedostosta
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
@@ -58,16 +57,18 @@ public ArrayList<String> loadMap() throws IOException{
 				world.add(new Hex(i, j, hexType.toString()));	//Luodaan uusi HEXa maailmaan, Character -merkki muutetaan Stringiksi että Hex konstructori hyväksyy sen.
 			}
 		}
-		convertEmptyHex();
+		world = convertEmptyHex(world);
+		return world;
 	}
 	
-	public void convertEmptyHex(){
+	public ArrayList<Hex> convertEmptyHex(ArrayList<Hex> world){
 		// 4. Käydään läpi maailman kaikki hexat. Mikäli kartassa on tyhjiä hexatyyppejä (type = " "), korvataan välilyönti "null":lla selvyyden vuoksi.
 		for(int i = 0; i<world.size();i++){
 			if(world.get(i).getType().equals(" ")){
 				world.get(i).setType("null");
 			}
 		}
+		return world;
 	}
 	
 	//Piirtometodi

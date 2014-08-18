@@ -11,7 +11,9 @@ public class Infantry extends Unit {
 	}
 	
 	@Override
-	public void move() {
+	public void move(int x, int y) {
+		super.xLocation = x;
+		super.yLocation = y;
 	}
 
 	@Override

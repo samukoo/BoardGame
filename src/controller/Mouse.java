@@ -19,6 +19,7 @@ public class Mouse implements MouseListener {
 	public Mouse(World world){
 		this.world = world;
 		popup.add(menu);
+		
 	}
 	
 	@Override
