@@ -15,7 +15,7 @@ public class MainFrame extends JFrame{
 		setSize(1000, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(bC);
-		setVisible(false);
+		setVisible(true);
 		
 		while(true){
 			bC.updateGameLogic();
