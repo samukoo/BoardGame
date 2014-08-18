@@ -15,8 +15,8 @@ public class MainFrame extends JFrame{
 		setSize(1000, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(bC);
-		setVisible(true);
-	//branch testi	
+		setVisible(false);
+	
 		while(true){
 			bC.updateGameLogic();
 			bC.repaint();
