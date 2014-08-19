@@ -12,54 +12,71 @@ import model.world.Hex;
 import model.world.World;
 
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 
 public class testWorld {
 
-	ArrayList<String>testCharMap = new ArrayList<String>();
+	
 	
 	@Test
 	public void testLoadMap() throws IOException {
-		assertTrue(testCharMap.isEmpty());
+		//given
+		ArrayList<String>mockCharMap = mock(ArrayList.class);
 		World SUT = new World();
-			testCharMap = SUT.loadMap("src/resources/kartta.txt");
-				assertFalse(testCharMap.isEmpty());
+		//when
+		mockCharMap = SUT.loadMap("src/resources/kartta.txt");
+		//then		
+		assertFalse(mockCharMap.isEmpty());
 	}
 
 	@Test
 	public void testCreateMap() {
+		//given
 		World SUT = new World();
 		ArrayList<Hex> testHexWorld = new ArrayList<Hex>();
-		
+		//when
 		testHexWorld = SUT.createMap();
-			assertFalse(testHexWorld.isEmpty()); //..että kartta ei ole tyhjä
-				for(int i=0; i<testHexWorld.size(); i++){
-					//luodaan kartta ja tarkistetaan että siinä ei ole " " tyypin hexoja
-					assertNotEquals(testHexWorld.get(i).getType()," ");
+		//then	
+		assertFalse(testHexWorld.isEmpty()); //..että kartta ei ole tyhjä
+	}
+	
+	@Test
+	public void testCreateMapNoEmptyHexas(){
+		//given
+		World SUT = new World();
+		ArrayList<Hex> testHexWorld = new ArrayList<Hex>();
+		//when
+		testHexWorld = SUT.createMap();
+		//then
+		for(int i=0; i<testHexWorld.size(); i++){
+		assertNotEquals(testHexWorld.get(i).getType()," ");
 		}
 	}
 
 	@Test
 	public void testConvertEmptyHex() {
-		
+		//given
 		Hex hex = new Hex(0, 0, " ");
 		ArrayList<Hex>testWorld = new ArrayList<Hex>();
 			testWorld.add(hex);
-		
+		//when
 		World SUT = new World();
 		testWorld = SUT.convertEmptyHex(testWorld);
-			assertEquals("Should be null, not space", testWorld.get(0).getType(), "null");
+		//then	
+		assertEquals("Should be null, not space", testWorld.get(0).getType(), "null");
 	}
 	
 	@Test
 	public void testNotConvertGoodHex(){
-		
+		//given
 		Hex hex = new Hex(0, 0, "s");
 		ArrayList<Hex>testWorld = new ArrayList<Hex>();
 			testWorld.add(hex);
-		
+		//when
 		World SUT = new World();
 		testWorld = SUT.convertEmptyHex(testWorld);
-			assertEquals("Should be still 's', not anything else", testWorld.get(0).getType(), "s");
+		//them	
+		assertEquals("Should be still 's', not anything else", testWorld.get(0).getType(), "s");
 		
 		
 		

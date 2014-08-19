@@ -72,7 +72,7 @@ public ArrayList<String> loadMap(String mapFile) throws IOException{
 	}
 	
 	//Piirtometodi
-	public void paint(Graphics g){
+	public void drawWorld(Graphics g){
 		for(int i= 0;i<world.size();i++){					//Maailman kokoinen piirtoloop
 			if(!world.get(i).getType().equals("null")){		//piirretään, mikäli type EI ole "null"
 				

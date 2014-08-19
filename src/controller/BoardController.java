@@ -17,9 +17,8 @@ public class BoardController extends JPanel{
 	private BattleField bf;
 	
 	public BoardController(){
-		world = new World();
-		bf = new BattleField(world);
-		addMouseListener(new Mouse(world));
+		bf = new BattleField();
+		addMouseListener(new Mouse(bf));
 	
 	//Kehitystestit:
 	
@@ -28,7 +27,7 @@ public class BoardController extends JPanel{
 		bf.addUnit();
 		
 		System.out.println(bf.getWorldType(0, 4));
-		System.out.println(bf.moveUnit(0, 3));
+		System.out.println(bf.moveUnit(3, 3));
 		
 		for(int i =0; i<bf.unitList.size();i++)
 		System.out.println(bf.unitList.get(i).getType() + " Y:"+bf.unitList.get(i).getyLocation() + " X:" + bf.unitList.get(i).getxLocation());
@@ -42,8 +41,8 @@ public class BoardController extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setStroke(new BasicStroke(2));
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		world.paint(g2d);
-		bf.paint(g2d);
+		bf.drawWorld(g2d);
+		bf.drawUnits(g2d);
 	}
 	public void updateGameLogic(){
 		

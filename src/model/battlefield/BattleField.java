@@ -8,46 +8,60 @@ import model.units.Tank;
 import model.units.Unit;
 import model.world.World;
 
-public class BattleField {
+public class BattleField extends World {
 //Luokan resurssit
-	public World w;
 	public ArrayList<Unit> unitList = new ArrayList<Unit>();
 
 	//konst.
-	public BattleField(World w){
-		this.w = w;
+	public BattleField(){
 	}
 	
 	
-	public void addUnit(){
+	public ArrayList<Unit> addUnit(){
 		unitList.add(new Tank(2,3));
 		unitList.add(new Infantry(2,4));
+		return unitList;
 	}
 	
 	public String moveUnit(int y, int x){
 		//1: ei saa liikkua mereen
-		if(!getWorldType(y,x).equals("s")){
-			unitList.get(0).move(x, y);
+		if(!getWorldType(y,x).equals("s") && isNextHex(y, x)){
+			unitList.get(0).move(x, y);		//index nolla!
 			return "ok";}
+		
 		else{return "Hexaan ei voi liikkua";}
-	
 	}
 	
-	public String getWorldType(int y, int x){
+	public boolean isNextHex(int y,int x){
+		int xO=3;
+		int res = xO-x;
 		
-		for(int i = 0; i<w.world.size(); i++){
-			if(w.world.get(i).getyId() == y && w.world.get(i).getxId() == x){
-				return w.world.get(i).getType();
+		if( res < 0){
+			res=res*-1;		
+			}
+		if (res > 1){
+			return false;
+		}
+		else 
+			return true;
+	
+	}
+		
+	
+	
+	
+	
+	
+	public String getWorldType(int y, int x){
+		for(int i = 0; i<world.size(); i++){
+			if(world.get(i).getyId() == y && world.get(i).getxId() == x){
+				return world.get(i).getType();
 			}
 		}
 		return null;
 	}
 	
-	
-	
-	
-	
-	public void paint(Graphics g){
+	public void drawUnits(Graphics g){
 		
 	}
 }

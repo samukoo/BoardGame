@@ -6,18 +6,19 @@ import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import model.world.World;
+import model.battlefield.BattleField;
 
 public class Mouse implements MouseListener {
 
-	private World world;
+	private BattleField bf;
+	//private World world;
 	private JMenuItem menu = new JMenuItem("testiMenu");
 	private JPopupMenu popup = new JPopupMenu();
 	
 	
 	
-	public Mouse(World world){
-		this.world = world;
+	public Mouse(BattleField bf){
+		this.bf = bf;
 		popup.add(menu);
 		
 	}
@@ -34,8 +35,8 @@ public class Mouse implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		for(int i = 0; i<world.world.size(); i++)
-			world.world.get(i).selectHex(x, y);
+		for(int i = 0; i<bf.world.size(); i++)
+			bf.world.get(i).selectHex(x, y);
 	}
 
 	@Override
