@@ -9,20 +9,24 @@ public class Hex extends JPanel{
 	private Polygon hex = new Polygon();
 	private String type = null;
 	private int r = 50; //hex:n s‰de
-	private int x,y, xId,yId; //hex:n keskipiste ja etenem‰ sek‰ HEXan x ja y ID
-	private int xDefault = 100; //Hexan vakio siirtym‰, ett‰ kaikki hexat n‰kyy ruudulla
-	private int yDefault = 100;
+	private int x,y; //hex:n kulman xy
+	private int[] xyId = new int[2]; //HEXan x ja y ID
+	private int[] xyDefault = {100,100}; //Hexan vakio siirtym‰, ett‰ kaikki hexat n‰kyy ruudulla
 	private boolean selected = false;
 	
-	public Hex(int i, int j, String type){
-		//i = kuinka mones hexaa riviss‰?
-		//j = mill‰ rivill‰ rivi‰?
+	
+	public Hex(int i, int j, String type){ //j = mill‰ rivill‰ rivi‰? i = kuinka mones hexaa riviss‰?
 		createHex(i,j);
-		this.xId=i;
-		this.yId=j;
+		
+		this.xyId[0]=i;
+		this.xyId[1]=j;
 		this.type = type;
 	}
+	
+	public Hex(){
 		
+	}
+	
 	public void createHex(int i, int j){
 		//x&y = hex:n kulman koordinaatit 
 		//tehd‰‰n hex
@@ -38,7 +42,7 @@ public class Hex extends JPanel{
 			if(j%2 != 0){
 				x = x + (int)(r*Math.cos(Math.PI/6));
 			}
-			hex.addPoint(x+xDefault,y+yDefault);
+			hex.addPoint(x+xyDefault[0],y+xyDefault[1]);
 		}
 	}
 
@@ -47,9 +51,34 @@ public class Hex extends JPanel{
 		setSelected(false);
 		if(hex.contains(x, y)){
 			setSelected(true);
-			System.out.println(" Y: " + yId + " x: "+xId);
+			System.out.println(xyId[0]+", "+xyId[1]);
 		}
 	}	
+	
+	public int[] hexHit(int x,int y){
+		if(hex.contains(x, y)){
+			//System.out.println("lopultakin osui: " + xyId[0] +", " + xyId[1]);
+			return xyId;
+			}
+		return null;
+		
+	}	
+	
+	//laske hexan keskipisteen koordinaatit
+	public int[] hexCenter(){
+		int cX=0;
+		int cY=0;
+		int[] centerXY = new int[2];
+		for(int list:hex.xpoints ){
+			cX+=list;
+		}
+		for(int list:hex.ypoints ){
+			cY+=list;
+		}
+		centerXY[0]=cX/6;
+		centerXY[1]=cY/6;
+		return centerXY;
+	}
 	
 	public int getX() {
 		return x;
@@ -59,22 +88,6 @@ public class Hex extends JPanel{
 		return y;
 	}
 	
-	public int getxId() {
-		return xId;
-	}
-
-	public int getyId() {
-		return yId;
-	}
-	
-	public int getxDefault() {
-		return xDefault;
-	}
-
-	public int getyDefault() {
-		return yDefault;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -95,7 +108,19 @@ public class Hex extends JPanel{
 		this.selected = selected;
 	}
 
+	public int getR() {
+		return r;
+	}
 
+	public void setR(int r) {
+		this.r = r;
+	}
+
+	public int[] getXyId() {
+		return xyId;
+	}
+
+	
 
 
 }

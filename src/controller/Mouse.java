@@ -37,6 +37,8 @@ public class Mouse implements MouseListener {
 		int y = e.getY();
 		for(int i = 0; i<bf.world.size(); i++)
 			bf.world.get(i).selectHex(x, y);
+			
+	
 	}
 
 	@Override

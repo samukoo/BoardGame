@@ -86,9 +86,9 @@ public ArrayList<String> loadMap(String mapFile) throws IOException{
 				}
 				
 				g.drawPolygon(world.get(i).getHex());			//piirret‰‰n polygoni uudestaan, ett‰ saadaan reunat mukaan
-				g.drawString(world.get(i).getType(),				//piirret‰‰n hexan tyyppi
-						world.get(i).getX()+35,
-						world.get(i).getY()+world.get(i).getyDefault()+30);
+				
+				int[]hexCenter=world.get(i).hexCenter();
+					g.drawString(world.get(i).getType(),hexCenter[0],hexCenter[1]); //piirret‰‰n hexan tyyppi
 			}
 		}
 	}
