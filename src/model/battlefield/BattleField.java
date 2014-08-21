@@ -1,7 +1,12 @@
 package model.battlefield;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import model.units.Infantry;
 import model.units.Tank;
@@ -17,7 +22,6 @@ public class BattleField extends World {
 	public BattleField(){
 	}
 	
-	
 	public ArrayList<Unit> addUnit(){
 		unitList.add(new Tank(2,3));
 		unitList.add(new Infantry(2,4));
@@ -26,16 +30,12 @@ public class BattleField extends World {
 	
 	public String moveUnit(int y, int x){
 		//ELI TÄSSÄ Y & X ON TARGET hexa
-		
 		//1: ei saa liikkua mereen
 		if(!getWorldType(y,x).equals("s") && isNextHex(y, x)){  //Tämä IF lause määrittää liikkumisen!
 			unitList.get(0).move(x, y);		//index nolla!
 			return "ok";}
 		else{return "Hexaan ei voi liikkua";}
 	}
-	
-	
-	
 	
 	public boolean isNextHex(int y, int x){
 		//tarkistaa onko hexa vieressä?
@@ -57,7 +57,6 @@ public class BattleField extends World {
 				}
 			return false;
 		}
-		
 	
 	public int[][] inspectHexBoard(int[]centerXY){	//tässä tehdään näkymätön hexa xy keskipisteen ympärille. sen kulmapisteiden avulla poimitaan hexan karttakoordinaatit
 		int[][]res = new int[6][2];
@@ -78,8 +77,6 @@ public class BattleField extends World {
 			return res;
 		}
 	
-	
-	
 	public String getWorldType(int y, int x){
 		for(int i = 0; i<world.size(); i++){
 			int[]type = world.get(i).getXyId();
@@ -90,9 +87,19 @@ public class BattleField extends World {
 		return null;
 	}
 	
-
-	
 	public void drawUnits(Graphics g){
+		File file = new File("src/resources/graph/tank.png");
+		BufferedImage img=null;
+			try {
+				img=ImageIO.read(file);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+		g.drawImage(img, 100,100,null);
+		
 		
 	}
 }

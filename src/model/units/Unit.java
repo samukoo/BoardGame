@@ -1,30 +1,25 @@
 package model.units;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Unit implements Actions{
 
-	int xLocation, yLocation;
+	int[] xyLocation;
 
 	public Unit(int y, int x){
-		this.xLocation = x;
-		this.yLocation = y;
+		this.xyLocation[0] = x;
+		this.xyLocation[1] = y;
+	}
+
+	public int[] getXyLocation() {
+		return xyLocation;
+	}
+
+	public void setXyLocation(int[] xyLocation) {
+		this.xyLocation = xyLocation;
 	}
 	
-	public int getxLocation() {
-		return xLocation;
-	}
-
-	public void setxLocation(int xLocation) {
-		this.xLocation = xLocation;
-	}
-
-	public int getyLocation() {
-		return yLocation;
-	}
-
-	public void setyLocation(int yLocation) {
-		this.yLocation = yLocation;
-	}
-
+	
 	
 	
 }

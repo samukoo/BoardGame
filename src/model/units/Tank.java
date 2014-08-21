@@ -1,5 +1,13 @@
 package model.units;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+
 
 public class Tank extends Unit{
 	
@@ -15,8 +23,8 @@ public class Tank extends Unit{
 
 	@Override
 	public void move(int x, int y) {
-		super.xLocation = x;
-		super.yLocation = y;
+		super.xyLocation[0] = x;
+		super.xyLocation[1] = y;
 	}
 
 
@@ -25,7 +33,13 @@ public class Tank extends Unit{
 		return type;
 	}
 
-	
+	public BufferedImage getImage() throws IOException{
+		//Ladataan ja palautetaan tank.png
+		File file = new File("src/resources/graph/tank.png");
+		BufferedImage img = null;
+		img = ImageIO.read(file);
+		return img;
+	}
 	
 	
 }

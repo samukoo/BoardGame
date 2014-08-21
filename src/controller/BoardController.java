@@ -27,7 +27,7 @@ public class BoardController extends JPanel{
 	}
 	public void updateGameLogic(){
 		
-		
+
 		
 	}
 }
