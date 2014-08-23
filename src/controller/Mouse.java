@@ -12,44 +12,32 @@ import model.world.Hex;
 public class Mouse implements MouseListener {
 
 	private BattleField bf;
-	//private World world;
-	private JMenuItem menu = new JMenuItem("testiMenu");
-	private JPopupMenu popup = new JPopupMenu();
-	
-	
+	private MouseActions mouseActions;
+	int[]XY=new int[2];	
 	
 	public Mouse(BattleField bf){
 		this.bf = bf;
-		popup.add(menu);
+		this.mouseActions = new MouseActions(bf);
+		
+		
 		
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getButton()==MouseEvent.BUTTON3){
-			popup.setLocation(e.getX(), e.getY());
-			popup.setVisible(true);
-		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int xyLoc[] = new int[2];
-		int hexLoc[] = new int[2];
-		xyLoc[0] = e.getX();
-		xyLoc[1] = e.getY();
 		
-		for(int i = 0; i<bf.world.size(); i++){
-		//iteroidaan oikea hexa	
-			Hex hex = bf.world.get(i);
-			if(hex.selectHex(xyLoc[0], xyLoc[1]) !=null){
-				hexLoc = hex.selectHex(xyLoc[0], xyLoc[1]);
-				xyLoc = bf.world.get(i).hexCenter();
-			}
+		XY[0]=e.getX();
+		XY[1]=e.getY();
 		
-		}
-			
-			bf.addUnit(hexLoc, xyLoc);
+		//mouseActions.selectHex(XY);
+		mouseActions.addUnit(XY);
+		mouseActions.moveUnit(XY);
+		
+		
 	}
 
 	@Override
