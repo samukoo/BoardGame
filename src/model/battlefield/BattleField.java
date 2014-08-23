@@ -1,6 +1,7 @@
 package model.battlefield;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,15 +17,14 @@ import model.world.World;
 
 public class BattleField extends World {
 //Luokan resurssit
-	public ArrayList<Unit> unitList = new ArrayList<Unit>();
+	public ArrayList<Unit> unitList = new ArrayList(); 
 
 	//konst.
 	public BattleField(){
 	}
 	
-	public ArrayList<Unit> addUnit(){
-		unitList.add(new Tank(2,3));
-		unitList.add(new Infantry(2,4));
+	public ArrayList<Unit> addUnit(int[]xyHex, int[] xyLoc){
+		unitList.add(new Tank(xyHex, xyLoc));
 		return unitList;
 	}
 	
@@ -79,7 +79,9 @@ public class BattleField extends World {
 	
 	public String getWorldType(int y, int x){
 		for(int i = 0; i<world.size(); i++){
+			
 			int[]type = world.get(i).getXyId();
+			
 			if(type[1] == y && type[0] == x){
 				return world.get(i).getType();
 			}
@@ -88,18 +90,21 @@ public class BattleField extends World {
 	}
 	
 	public void drawUnits(Graphics g){
-		File file = new File("src/resources/graph/tank.png");
-		BufferedImage img=null;
-			try {
-				img=ImageIO.read(file);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		
 		
-		g.drawImage(img, 100,100,null);
 		
+		for(int i = 0; i<unitList.size();i++){
+		
+		Unit unit = unitList.get(i);
+		
+		try {
+			g.drawImage(unit.getImage(),
+					unit.getXyLoc()[0]-unit.getImageDimension()[0]/2, // X lokaatio
+					unit.getXyLoc()[1]-unit.getImageDimension()[1]/2, // Y lokaati
+					null);	
+		} catch (IOException e) {
+			e.printStackTrace();}
+		}
 		
 	}
 }

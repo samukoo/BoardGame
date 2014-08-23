@@ -1,30 +1,26 @@
 package model.units;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 
 
 public class Tank extends Unit{
 	
-	private int hitPoint = 10;
-	private int movePoints = 3;
 	private String type = "Tank";
 	
-	public Tank(int y, int x) {
-		super(y, x);
+	public Tank(int[] xyHex, int[]xyLoc) {
+		super(xyHex, xyLoc);
 		
 	}
 
 
 	@Override
-	public void move(int x, int y) {
-		super.xyLocation[0] = x;
-		super.xyLocation[1] = y;
+	public void move(int xHex, int yHex) {
+		super.xyHex[0] = xHex;
+		super.xyHex[1] = yHex;
 	}
 
 
@@ -33,12 +29,22 @@ public class Tank extends Unit{
 		return type;
 	}
 
-	public BufferedImage getImage() throws IOException{
+	@Override
+	public Image getImage() throws IOException{
 		//Ladataan ja palautetaan tank.png
 		File file = new File("src/resources/graph/tank.png");
-		BufferedImage img = null;
-		img = ImageIO.read(file);
+		Image img = ImageIO.read(file);
 		return img;
+	}
+
+
+	@Override
+	public int[] getImageDimension() throws IOException {
+		int imageDimension[] = new int[2];
+		Image img = getImage();
+		imageDimension[0] = img.getWidth(null);
+		imageDimension[1] = img.getHeight(null);
+		return imageDimension;
 	}
 	
 	

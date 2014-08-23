@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 import model.battlefield.BattleField;
+import model.units.Infantry;
 import model.units.Tank;
 
 import org.junit.Test;
@@ -17,7 +18,8 @@ public class testBattleField {
 		//Given
 		BattleField SUT = new BattleField();
 		//When
-		SUT.unitList.add(new Tank(0, 0));
+		int[]mockInt={10,10};
+		SUT.unitList.add(new Tank(mockInt, mockInt));
 		String res = SUT.unitList.get(0).getType();
 		//Then
 		assertEquals("List should contain Tank","Tank", res);
@@ -50,7 +52,8 @@ public class testBattleField {
 	public void testMoveUnitToLand(){
 		//given
 		BattleField aMock = spy(new BattleField());
-		aMock.unitList.add(new Tank(3,3));
+		int[]mockInt={10,10};
+		aMock.unitList.add(new Tank(mockInt,mockInt));
 		when(aMock.getWorldType(0, 0)).thenReturn("f");
 		when(aMock.isNextHex(0, 0)).thenReturn(true);
 		//when
@@ -78,7 +81,11 @@ public class testBattleField {
 	
 	@Test
 	public void testGetWorldType() {
-		fail("Not yet implemented");
+		//Given
+		BattleField SUT = new BattleField();
+		//When
+		String res = SUT.getWorldType(3, 3);
+		//Then
+		assertEquals("Hex 3,3 should be forest","f",res);
 	}
-
 }

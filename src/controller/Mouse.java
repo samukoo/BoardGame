@@ -7,6 +7,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import model.battlefield.BattleField;
+import model.world.Hex;
 
 public class Mouse implements MouseListener {
 
@@ -33,12 +34,22 @@ public class Mouse implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		for(int i = 0; i<bf.world.size(); i++)
-			bf.world.get(i).selectHex(x, y);
+		int xyLoc[] = new int[2];
+		int hexLoc[] = new int[2];
+		xyLoc[0] = e.getX();
+		xyLoc[1] = e.getY();
+		
+		for(int i = 0; i<bf.world.size(); i++){
+		//iteroidaan oikea hexa	
+			Hex hex = bf.world.get(i);
+			if(hex.selectHex(xyLoc[0], xyLoc[1]) !=null){
+				hexLoc = hex.selectHex(xyLoc[0], xyLoc[1]);
+				xyLoc = bf.world.get(i).hexCenter();
+			}
+		
+		}
 			
-	
+			bf.addUnit(hexLoc, xyLoc);
 	}
 
 	@Override

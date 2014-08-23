@@ -15,6 +15,8 @@ public class BoardController extends JPanel{
 		bf = new BattleField();
 		addMouseListener(new Mouse(bf));
 	
+		
+		
 	}
 	
 	public void paint(Graphics g){
