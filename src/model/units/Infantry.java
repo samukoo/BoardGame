@@ -5,8 +5,6 @@ import java.io.IOException;
 
 public class Infantry extends Unit {
 
-	private int hitPoint = 5;
-	private int movePoints = 2;
 	private String type = "Infantry";
 	
 	public Infantry(int[] xyHex, int[]xyLoc) {

@@ -12,15 +12,11 @@ import model.world.Hex;
 public class Mouse implements MouseListener {
 
 	private BattleField bf;
-	private MouseActions mouseActions;
+	private MouseActions mouseActions = new MouseActions();
 	int[]XY=new int[2];	
 	
 	public Mouse(BattleField bf){
 		this.bf = bf;
-		this.mouseActions = new MouseActions(bf);
-		
-		
-		
 	}
 	
 	@Override
@@ -29,15 +25,12 @@ public class Mouse implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
 		XY[0]=e.getX();
 		XY[1]=e.getY();
-		
+
 		//mouseActions.selectHex(XY);
-		mouseActions.addUnit(XY);
-		mouseActions.moveUnit(XY);
-		
-		
+		bf = mouseActions.addUnit(bf , XY);
+		//mouseActions.moveUnit(XY);
 	}
 
 	@Override
