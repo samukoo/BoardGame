@@ -12,10 +12,11 @@ public class Infantry extends Unit {
 	}
 	
 	@Override
-	public void move(int xHex, int yHex) {
-		super.xyHex[0] = xHex;
-		super.xyHex[1] = yHex;
+	public void move(int x, int y, int[] xYcoord) {
+		// TODO Auto-generated method stub
+		
 	}
+
 
 	@Override
 	public String getType() {
@@ -34,4 +35,5 @@ public class Infantry extends Unit {
 		return null;
 	}
 
+	
 }

@@ -27,10 +27,14 @@ public class Mouse implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		XY[0]=e.getX();
 		XY[1]=e.getY();
-
-		//mouseActions.selectHex(XY);
-		bf = mouseActions.addUnit(bf , XY);
+		if(e.getButton() == MouseEvent.BUTTON1 ){
+			bf = mouseActions.addUnit(bf , XY);
+		}
+		if(e.getButton() == MouseEvent.BUTTON3 ){
+			bf = mouseActions.moveUnit(bf, XY);
+		}
 		//mouseActions.moveUnit(XY);
+		//mouseActions.selectHex(bf, XY);
 	}
 
 	@Override

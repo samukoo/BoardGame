@@ -46,17 +46,17 @@ public class Hex extends JPanel{
 		}
 	}
 
-	public int[] selectHex(int x,int y){
+	public int[] selectHex(int[] xY){
 		//jos hiiren klikkauksen x&y on tämän hexan sisälle, aseta se valituksi
 		setSelected(false);
-		if(hex.contains(x, y)){
+		if(hex.contains(xY[0], xY[1])){
 			setSelected(true);
 			return xyId;
 		}
 		return null;
 	}	
 	
-	public int[] hexHit(int x,int y){
+	public int[] hexHit(int x, int y){
 		if(hex.contains(x, y)){
 			return xyId;
 			}

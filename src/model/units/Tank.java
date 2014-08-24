@@ -18,9 +18,13 @@ public class Tank extends Unit{
 
 
 	@Override
-	public void move(int xHex, int yHex) {
+	public void move(int xHex, int yHex, int[] xyCoord) {
 		super.xyHex[0] = xHex;
 		super.xyHex[1] = yHex;
+		super.xyLoc[0] = xyCoord[0];
+		super.xyLoc[1] = xyCoord[1];
+		
+		
 	}
 
 

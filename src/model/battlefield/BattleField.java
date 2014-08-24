@@ -31,10 +31,28 @@ public class BattleField extends World {
 	public String moveUnit(int y, int x){
 		//ELI TÄSSÄ Y & X ON TARGET hexa
 		//1: ei saa liikkua mereen
-		if(!getWorldType(y,x).equals("s") && isNextHex(y, x)){  //Tämä IF lause määrittää liikkumisen!
-			unitList.get(0).move(x, y);		//index nolla!
-			return "ok";}
-		else{return "Hexaan ei voi liikkua";}
+		// if(!getWorldType(y,x).equals("s")&& isNextHex(y, x)){  //Tämä IF lause määrittää liikkumisen!
+		int[]xYcoord = new int[2];
+		
+		for(int i=0; i<world.size();i++){ 		//1.for luuppi selvittää starttihexan 
+			int[]xyID =world.get(i).getXyId();
+			if(xyID[1] == y && xyID[0] == x){   //pieni kovakoodaus helpottamaan
+				xYcoord = world.get(i).hexCenter();
+			
+			}
+		}
+		
+		
+		
+		unitList.get(0).move(x, y, xYcoord);		//index nolla!
+
+		System.out.println("X: " + unitList.get(0).getXyLoc()[0] + " Y: " + unitList.get(0).getXyLoc()[1]);
+		
+		return "ok";
+		
+		
+		
+		
 	}
 	
 	public boolean isNextHex(int y, int x){
@@ -91,17 +109,16 @@ public class BattleField extends World {
 	
 	public void drawUnits(Graphics g){
 		
-		
-		
 		for(int i = 0; i<unitList.size();i++){
-		
 		Unit unit = unitList.get(i);
 		
 		try {
 			g.drawImage(unit.getImage(),
+					
 					unit.getXyLoc()[0]-unit.getImageDimension()[0]/2, // X lokaatio
 					unit.getXyLoc()[1]-unit.getImageDimension()[1]/2, // Y lokaati
 					null);	
+			
 		} catch (IOException e) {
 			e.printStackTrace();}
 		}
