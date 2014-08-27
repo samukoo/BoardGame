@@ -1,9 +1,15 @@
 package controller;
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
 import model.battlefield.BattleField;
 
 public class BoardController extends JPanel{
@@ -14,8 +20,10 @@ public class BoardController extends JPanel{
 	public BoardController(){
 		bf = new BattleField();
 		addMouseListener(new Mouse(bf));
-	
 		
+		setBackground(Color.WHITE);
+		setBorder(BorderFactory.createEtchedBorder());
+		setPreferredSize(new Dimension(800, 630));
 		
 	}
 	
