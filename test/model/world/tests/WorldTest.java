@@ -11,7 +11,7 @@ import model.world.World;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
 
-public class testWorld {
+public class WorldTest {
 
 	
 	
