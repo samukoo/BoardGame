@@ -1,5 +1,10 @@
 package model.units;
 
+/**
+ * @author kotissa
+ * TankTestit
+ */
+
 import static org.junit.Assert.*;
 
 import java.awt.Image;
@@ -8,6 +13,7 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.junit.Test;
+
 
 public class TankTest {
 
