@@ -9,7 +9,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-public class testTank {
+public class TankTest {
 
 	@Test
 	public void testGetImage() throws IOException {

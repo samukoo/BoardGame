@@ -11,7 +11,7 @@ import model.units.Tank;
 
 import org.junit.Test;
 
-public class testBattleField {
+public class BattleFieldTest {
 
 	@Test
 	public void testAddUnit() {
