@@ -31,24 +31,24 @@ public class BattleField extends World {
 	public String moveUnit(int y, int x){
 		//ELI TÄSSÄ Y & X ON TARGET hexa
 		//1: ei saa liikkua mereen
-		// if(!getWorldType(y,x).equals("s")&& isNextHex(y, x)){  //Tämä IF lause määrittää liikkumisen!
+		
 		int[]xYcoord = new int[2];
 		
 		for(int i=0; i<world.size();i++){ 		//1.for luuppi selvittää starttihexan 
 			int[]xyID =world.get(i).getXyId();
-			if(xyID[1] == y && xyID[0] == x){   //pieni kovakoodaus helpottamaan
-				xYcoord = world.get(i).hexCenter();
 			
+			if(xyID[1] == y && xyID[0] == x){   
+				xYcoord = world.get(i).hexCenter();
 			}
 		}
-		
-		
-		
+		if(!getWorldType(y,x).equals("s")&& isNextHex(y, x)){  //Tämä IF lause määrittää liikkumisen!
 		unitList.get(0).move(x, y, xYcoord);		//index nolla!
-
 		System.out.println("X: " + unitList.get(0).getXyLoc()[0] + " Y: " + unitList.get(0).getXyLoc()[1]);
-		
 		return "ok";
+		}
+		else{
+			return "Hexaan ei voi liikkua";
+		}
 		
 		
 		
