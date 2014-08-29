@@ -1,6 +1,5 @@
 package controller;
 import java.awt.BasicStroke;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -35,9 +34,9 @@ public class BoardController extends JPanel{
 		bf.drawWorld(g2d);
 		bf.drawUnits(g2d);
 	}
-	public void updateGameLogic(){
+	public void updateGameLogic(String msg){
 		
-
+		System.out.println("BoardController printtaa: " + msg );
 		
 	}
 }

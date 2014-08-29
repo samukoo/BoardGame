@@ -10,53 +10,45 @@ package gui;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 
-public class ToolBar extends JPanel {
+public class ToolBar extends JPanel implements ActionListener{
 
-	private JButton btn1 = new JButton("Testi0");
-	private JButton btn2 = new JButton("Testi2");
-	private JButton btn3 = new JButton("Testi3");
-	private JButton btn4 = new JButton("Testi4");
-	
-	private JScrollPane scroll = new JScrollPane();
-	
+	private JButton btn1 = new JButton("AddUnit");
+	private JButton btn2 = new JButton("MoveUnit");
+	private EventListener event;
 	
 	public ToolBar(){
 		layOutSetup();
-		buttonActions();
+		btn1.addActionListener(this);
+		btn2.addActionListener(this);
 		
 	}
 	
-	public void buttonActions(){
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton source = (JButton)e.getSource();
+		if(source == btn1){
+			event.btnListener("btn1");
+		}
+		if(source == btn2){
+			event.btnListener("btn2");
+		}
 		
-		btn1.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("btn1 printtaa!");
-			}
-		});
+		
+	}
+	
+	public void setEventListener(EventListener event) {
+		this.event = event;
 	}
 
-	
-	
-	
-	
-	
-	
 	public void layOutSetup(){
-		
-		
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
@@ -65,39 +57,39 @@ public class ToolBar extends JPanel {
 ////////FIrst row ///////////
 		
 		gc.weightx = 1;
-		gc.weighty = 0.1;
+		gc.weighty = 0.05;
 		
-		gc.gridx = 0;
+//		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.fill = GridBagConstraints.NONE;
-		gc.anchor = GridBagConstraints.LINE_END;
-		gc.insets = new Insets(0, 5, 0, 5);
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(5, 5, 0, 5);
 		add(btn1, gc);
-		
+/*		
 		gc.gridx = 1;
 		gc.gridy = 0;
 		gc.anchor = GridBagConstraints.LINE_START;
 		gc.insets = new Insets(0, 0, 0, 5);
 		add(btn2, gc);
-		
+*/	
 ////////Second row ///////////
 		
-		gc.weightx = 1;
-		gc.weighty = 0.1;
+//		gc.weightx = 1;
+		gc.weighty = 1;
 		
 		gc.gridx = 0;
-		gc.gridy = 1;
+		gc.gridy = 10;
 		gc.fill = GridBagConstraints.NONE;
-		gc.anchor = GridBagConstraints.LINE_END;
-		gc.insets = new Insets(0, 0, 0, 5);
-		add(btn3, gc);
-		
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(0, 0, 0, 0);
+		add(btn2, gc);
+/*		
 		gc.gridx = 1;
 		gc.gridy = 1;
 		gc.anchor = GridBagConstraints.LINE_START;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(btn4, gc);		
-		
+*/	
 		
 		
 		
@@ -105,6 +97,10 @@ public class ToolBar extends JPanel {
 		
 		
 	}
+
+
+
+	
 	
 	
 	

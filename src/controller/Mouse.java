@@ -3,11 +3,7 @@ package controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-
 import model.battlefield.BattleField;
-import model.world.Hex;
 
 public class Mouse implements MouseListener {
 

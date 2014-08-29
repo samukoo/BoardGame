@@ -1,15 +1,9 @@
 package model.battlefield;
 
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
-import model.units.Infantry;
 import model.units.Tank;
 import model.units.Unit;
 import model.world.Hex;
