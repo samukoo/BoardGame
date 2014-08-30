@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import controller.BoardController;
+import controller.SelectedAction;
 
 public class MainFrame extends JFrame{
 
@@ -26,8 +27,8 @@ public MainFrame() throws InterruptedException{
 		tb.setEventListener(new EventListener() {
 			
 			@Override
-			public void btnListener(String msg) {
-				bC.updateGameLogic(msg);
+			public void btnListener(SelectedAction sa) {
+				bC.setSelectedAction(sa);
 			}
 		});
 		

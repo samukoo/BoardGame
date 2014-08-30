@@ -15,10 +15,13 @@ public class BoardController extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	private BattleField bf;
+	private SelectedAction sa;
+	private Mouse mouse;
 	
 	public BoardController(){
 		bf = new BattleField();
-		addMouseListener(new Mouse(bf));
+		mouse = new Mouse(bf);
+		addMouseListener(mouse);
 		
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createEtchedBorder());
@@ -37,6 +40,11 @@ public class BoardController extends JPanel{
 	public void updateGameLogic(String msg){
 		
 		System.out.println("BoardController printtaa: " + msg );
+		
+	}
+
+	public void setSelectedAction(SelectedAction sa) {
+		mouse.setSelection(sa);
 		
 	}
 }

@@ -6,9 +6,9 @@ import model.world.Hex;
 public class MouseActions{
 
 
-	public BattleField selectHex(BattleField bf, int[] xY) {
+	public BattleField selectHex(BattleField bf, int[] XY) {
 		for(int i=0;i<bf.world.size();i++){
-			bf.world.get(i).selectHex(xY);
+			bf.world.get(i).selectHex(XY);
 		}
 		return bf;
 	}

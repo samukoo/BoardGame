@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.SelectedAction;
+
 
 public class ToolBar extends JPanel implements ActionListener{
 
@@ -35,10 +37,16 @@ public class ToolBar extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton source = (JButton)e.getSource();
 		if(source == btn1){
-			event.btnListener("btn1");
+			SelectedAction sa = new SelectedAction();
+			sa.setAddUnit(true);
+			
+			event.btnListener(sa);
 		}
 		if(source == btn2){
-			event.btnListener("btn2");
+			SelectedAction sa = new SelectedAction();
+			sa.setMoveUnit(true);
+			
+			event.btnListener(sa);
 		}
 		
 		
