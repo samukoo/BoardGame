@@ -6,6 +6,7 @@ import java.io.IOException;
 public interface Actions {
 	public void move(int x, int y, int[] xYcoord);
 	public String getType();
+	public int getCost();
 	public Image getImage()throws IOException;
 	public int[] getImageDimension() throws IOException;
 	

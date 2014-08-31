@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 public class Tank extends Unit{
 	
 	private String type = "Tank";
+	private int cost = 2;
 	
 	public Tank(int[] xyHex, int[]xyLoc) {
 		super(xyHex, xyLoc);
@@ -50,6 +51,15 @@ public class Tank extends Unit{
 		imageDimension[1] = img.getHeight(null);
 		return imageDimension;
 	}
+
+
+	@Override
+	public int getCost() {
+		return cost;
+	}
+
+
+	
 	
 	
 }

@@ -35,5 +35,11 @@ public class Infantry extends Unit {
 		return null;
 	}
 
+	@Override
+	public int getCost() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 }
