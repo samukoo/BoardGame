@@ -1,6 +1,6 @@
 package controller;
 
-public class SelectedAction {
+public class UserAction {
 
 	boolean addUnit = false;
 	boolean moveUnit = false;

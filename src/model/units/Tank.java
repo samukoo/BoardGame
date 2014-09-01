@@ -15,6 +15,7 @@ public class Tank extends Unit{
 	public Tank(){
 	}
 	
+	
 	public Tank(int[] xyHex, int[]xyLoc) {
 		super(xyHex, xyLoc);
 	}

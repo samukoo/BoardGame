@@ -1,7 +1,7 @@
 package gui;
 
-import controller.SelectedAction;
+import model.units.Army;
 
 public interface EventListener {
-	public void btnListener(SelectedAction sa);
+	public void btnListener(Army army);
 }

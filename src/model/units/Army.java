@@ -16,7 +16,7 @@ public class Army {
 	private int armyPoints = 5;
 	private List<Unit> army = new ArrayList<Unit>();
 	
-	public List<Unit> addUnit(Unit unit){
+	protected List<Unit> addUnit(Unit unit){
 		army.add(unit);
 		return army;
 	}
@@ -29,7 +29,7 @@ public class Army {
 		return armyPoints;
 	}
 	
-	public void setPoints(Unit unit){
+	protected void setPoints(Unit unit){
 		armyPoints = armyPoints - unit.getCost();
 	}
 		
