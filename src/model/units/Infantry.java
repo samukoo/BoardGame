@@ -6,6 +6,11 @@ import java.io.IOException;
 public class Infantry extends Unit {
 
 	private String type = "Infantry";
+	private static int cost = 1;
+	
+	public Infantry(){
+		
+	}
 	
 	public Infantry(int[] xyHex, int[]xyLoc) {
 		super(xyHex, xyLoc);
@@ -37,8 +42,7 @@ public class Infantry extends Unit {
 
 	@Override
 	public int getCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return cost;
 	}
 
 	

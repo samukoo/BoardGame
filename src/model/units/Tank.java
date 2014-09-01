@@ -10,13 +10,14 @@ import javax.imageio.ImageIO;
 public class Tank extends Unit{
 	
 	private String type = "Tank";
-	private int cost = 2;
+	private static int cost = 2;
+	
+	public Tank(){
+	}
 	
 	public Tank(int[] xyHex, int[]xyLoc) {
 		super(xyHex, xyLoc);
-		
 	}
-
 
 	@Override
 	public void move(int xHex, int yHex, int[] xyCoord) {

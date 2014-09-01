@@ -21,7 +21,7 @@ public MainFrame() throws InterruptedException{
 		setSize(1000, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		add(new JScrollPane(bC), BorderLayout.CENTER);
+//		add(new JScrollPane(bC), BorderLayout.CENTER);
 		add(new JScrollPane(tb), BorderLayout.WEST);
 		
 		tb.setEventListener(new EventListener() {

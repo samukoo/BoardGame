@@ -14,42 +14,78 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
-import controller.SelectedAction;
+import model.units.ArmyController;
+import model.units.Infantry;
+import model.units.Tank;
 
 
 public class ToolBar extends JPanel implements ActionListener{
 
-	private JButton btn1 = new JButton("AddUnit");
-	private JButton btn2 = new JButton("MoveUnit");
+	private JButton btn1;
+	private JButton btn2;
+	private JButton btn3;
+	private JRadioButton rad1;
+	private JRadioButton rad2;
+	private ButtonGroup unitGroup;
+	
+	private ArmyController armyController;
 	private EventListener event;
 	
 	public ToolBar(){
-		layOutSetup();
-		btn1.addActionListener(this);
-		btn2.addActionListener(this);
 		
+		btn1 = new JButton("AddUnit");
+		btn2 = new JButton("MoveUnit");
+		btn3 = new JButton("Buy Unit");
+		rad1 = new JRadioButton("Tank");
+		rad2 = new JRadioButton("Infantry");
+		rad1.setSelected(true);
+		rad1.setActionCommand("Tank");
+		rad2.setActionCommand("Infantry");
+		
+		unitGroup = new ButtonGroup();
+		unitGroup.add(rad1);
+		unitGroup.add(rad2);
+		
+		armyController = new ArmyController();
+		
+			
+		btn3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String unit = unitGroup.getSelection().getActionCommand();
+				if(unit == "Tank"){
+					Tank tank = new Tank();
+					armyController.addUnits(tank);
+				}
+				if(unit == "Infantry"){
+					Infantry infantry = new Infantry();
+					armyController.addUnits(infantry);
+				}
+				
+			}
+		});
+		
+		
+		layOutSetup();
+		
+		
+		
+//		btn3.addActionListener(this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton source = (JButton)e.getSource();
-		if(source == btn1){
-			SelectedAction sa = new SelectedAction();
-			sa.setAddUnit(true);
-			
-			event.btnListener(sa);
-		}
-		if(source == btn2){
-			SelectedAction sa = new SelectedAction();
-			sa.setMoveUnit(true);
-			
-			event.btnListener(sa);
-		}
+
 		
 		
+//		Tank tank = new Tank();
+//		armyController.addUnits(tank);
 	}
 	
 	public void setEventListener(EventListener event) {
@@ -63,53 +99,48 @@ public class ToolBar extends JPanel implements ActionListener{
 		setBackground(Color.gray);
 		
 ////////FIrst row ///////////
-		
 		gc.weightx = 1;
 		gc.weighty = 0.05;
 		
-//		gc.gridx = 0;
+		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.fill = GridBagConstraints.NONE;
 		gc.anchor = GridBagConstraints.NORTH;
-		gc.insets = new Insets(5, 5, 0, 5);
+		gc.insets = new Insets(0, 5, 0, 5);
 		add(btn1, gc);
-/*		
-		gc.gridx = 1;
-		gc.gridy = 0;
-		gc.anchor = GridBagConstraints.LINE_START;
-		gc.insets = new Insets(0, 0, 0, 5);
-		add(btn2, gc);
-*/	
-////////Second row ///////////
 		
-//		gc.weightx = 1;
+		gc.gridx = 1;
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(0, 5, 0, 5);
+		add(btn2, gc);
+////////Second row ///////////
+		gc.weightx = 1;
+		gc.weighty = 0.05;
+		
+		gc.gridx = 0;
+		gc.gridy++;
+		gc.fill = GridBagConstraints.NONE;
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(0, 0, 0, 0);
+		add(btn3, gc);
+
+////////Third row ///////////
+		gc.weightx = 1;
 		gc.weighty = 1;
 		
 		gc.gridx = 0;
-		gc.gridy = 10;
+		gc.gridy++;
 		gc.fill = GridBagConstraints.NONE;
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 0, 0, 0);
-		add(btn2, gc);
-/*		
+		add(rad1, gc);
+
 		gc.gridx = 1;
-		gc.gridy = 1;
-		gc.anchor = GridBagConstraints.LINE_START;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(btn4, gc);		
-*/	
-		
-		
-		
-		
-		
-		
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(0, 5, 0, 5);
+		add(rad2, gc);
+	
 	}
-
-
-
-	
-	
 	
 	
 }

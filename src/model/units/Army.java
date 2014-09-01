@@ -1,36 +1,40 @@
 package model.units;
-
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * @author kotissa
+ * This Class describes the army. Player has certain amount of points to spend in units
+ * For example. Player has 5 points to spend and a tank cost 2 points. Player can have two tanks and spend
+ * one point left to one Infantry unit. Or the player can just buy 5 infantry units and hope for the best.
+ */
 
 public class Army {
 
-	public int armySize = 0;
-	public int armyPoints = 5;
-	public ArrayList<Unit> army = new ArrayList<Unit>();
-
-	public Army(){
-		
-	}
+	private int armySize = 0;
+	private int armyPoints = 5;
+	private List<Unit> army = new ArrayList<Unit>();
 	
-	public void addArmyUnit(Unit unit){
-		if(checkPointsLeft(unit)){
+	public List<Unit> addUnit(Unit unit){
 		army.add(unit);
-		armySize++;
-		}
+		return army;
 	}
-	
-	public boolean checkPointsLeft(Unit unit){
-		if(armyPoints > unit.getCost()){
-			armyPoints = armyPoints - unit.getCost();
-			return true;
-		}
-		else{
-			
-			System.out.println("pisteet ei riitä");
-			return false;
-			}
+
+	public List getArmyAsList(){
+		return army;
+	}
 		
+	public int getPoints(){
+		return armyPoints;
 	}
 	
+	public void setPoints(Unit unit){
+		armyPoints = armyPoints - unit.getCost();
+	}
+		
 	
+
+
+
 }
