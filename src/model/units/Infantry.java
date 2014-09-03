@@ -29,13 +29,13 @@ public class Infantry extends Unit {
 	}
 
 	@Override
-	public BufferedImage getImage() throws IOException {
+	public BufferedImage getImage(){
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int[] getImageDimension() throws IOException {
+	public int[] getImageDimension(){
 		// TODO Auto-generated method stub
 		return null;
 	}

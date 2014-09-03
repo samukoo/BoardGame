@@ -1,3 +1,4 @@
+/*
 package controller;
 
 import java.awt.event.MouseEvent;
@@ -56,3 +57,4 @@ public class Mouse implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 	}
 }
+*/

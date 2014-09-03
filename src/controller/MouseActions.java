@@ -1,3 +1,4 @@
+/*
 package controller;
 
 import model.battlefield.BattleField;
@@ -8,7 +9,7 @@ public class MouseActions{
 
 	public BattleField selectHex(BattleField bf, int[] XY) {
 		for(int i=0;i<bf.world.size();i++){
-			bf.world.get(i).selectHex(XY);
+//			bf.world.get(i).selectHex(XY);
 		}
 		return bf;
 	}
@@ -23,14 +24,14 @@ public class MouseActions{
 		for(int i = 0; i<bf.world.size(); i++){
 		//iteroidaan oikea hexa	xy pistekoordinaattien mukaan
 			Hex hex = bf.world.get(i);
-			if(hex.selectHex(xyLoc) !=null){
-				hexLoc = hex.selectHex(xyLoc);
+//			if(hex.selectHex(xyLoc) !=null){
+//				hexLoc = hex.selectHex(xyLoc);
 				xyLoc = hex.hexCenter();
 			}
 		}
-		bf.addUnit(hexLoc, xyLoc);
-		return bf;
-	}
+//		bf.addUnit(hexLoc, xyLoc);
+//		return bf;
+//	}
 
 public BattleField moveUnit(BattleField bf, int[] xY){
 	
@@ -49,3 +50,4 @@ public BattleField moveUnit(BattleField bf, int[] xY){
 
 	
 }
+*/
