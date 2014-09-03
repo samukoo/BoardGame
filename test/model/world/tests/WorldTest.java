@@ -16,6 +16,22 @@ public class WorldTest {
 	
 	
 	@Test
+	public void testGetHexCenter(){
+		//Given
+		World SUT = new World();
+		int[] testHex = {3,3};
+		int[] res;
+		
+		//When
+		res = SUT.getHexCenterPosition(testHex);
+		//then
+		System.out.println("mit: " +res[0]+" vit: " + res[1]);
+		assertNotNull(res);
+	}
+	
+	
+	
+	@Test
 	public void testLoadMap() throws IOException {
 		//given
 		ArrayList<String>mockCharMap = mock(ArrayList.class);

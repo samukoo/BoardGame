@@ -11,14 +11,23 @@ public class Tank extends Unit{
 	
 	private String type = "Tank";
 	private static int cost = 2;
+	private Image img;
 	
 	public Tank(){
+	
+		File file = new File("src/resources/graph/tank.png");
+		try {
+			img = ImageIO.read(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	
+	/*
 	public Tank(int[] xyHex, int[]xyLoc) {
 		super(xyHex, xyLoc);
-	}
+	}*/
 
 	@Override
 	public void move(int xHex, int yHex, int[] xyCoord) {
@@ -26,10 +35,7 @@ public class Tank extends Unit{
 		super.xyHex[1] = yHex;
 		super.xyLoc[0] = xyCoord[0];
 		super.xyLoc[1] = xyCoord[1];
-		
-		
 	}
-
 
 	@Override
 	public String getType() {
@@ -37,31 +43,21 @@ public class Tank extends Unit{
 	}
 
 	@Override
-	public Image getImage() throws IOException{
-		//Ladataan ja palautetaan tank.png
-		File file = new File("src/resources/graph/tank.png");
-		Image img = ImageIO.read(file);
+	public Image getImage(){
 		return img;
 	}
 
-
 	@Override
-	public int[] getImageDimension() throws IOException {
+	public int[] getImageDimension(){
 		int imageDimension[] = new int[2];
-		Image img = getImage();
 		imageDimension[0] = img.getWidth(null);
 		imageDimension[1] = img.getHeight(null);
+		
 		return imageDimension;
 	}
-
 
 	@Override
 	public int getCost() {
 		return cost;
 	}
-
-
-	
-	
-	
 }

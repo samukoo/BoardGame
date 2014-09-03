@@ -10,7 +10,7 @@ public class Hex extends JPanel{
 	private String type = null;
 	private int r = 50; //hex:n säde
 	private int[] xy = new int[2];
-	private int[] xyId = new int[2]; //HEXan x ja y ID
+	public int[] xyId = new int[2]; //HEXan x ja y ID (EI PIXELI X&Y)
 	private int[] xyDefault = {100,100}; //Hexan vakio siirtymä, että kaikki hexat näkyy ruudulla
 	private boolean selected = false;
 	
@@ -21,10 +21,6 @@ public class Hex extends JPanel{
 		this.xyId[0]=i;
 		this.xyId[1]=j;
 		this.type = type;
-	}
-	
-	public Hex(){
-		
 	}
 	
 	public void createHex(int i, int j){
@@ -43,26 +39,12 @@ public class Hex extends JPanel{
 				xy[0] = xy[0] + (int)(r*Math.cos(Math.PI/6));
 			}
 			hex.addPoint(xy[0]+xyDefault[0],xy[1]+xyDefault[1]);
-		}
-	}
+		}}
 
-	public int[] selectHex(int[] xY){
-		//jos hiiren klikkauksen x&y on tämän hexan sisälle, aseta se valituksi
-		setSelected(false);
-		if(hex.contains(xY[0], xY[1])){
-			setSelected(true);
-			return xyId;
-		}
-		return null;
-	}	
 	
 	public int[] hexHit(int x, int y){
-		if(hex.contains(x, y)){
-			return xyId;
-			}
-		else
-			return null;
-		
+
+		return (hex.contains(x,y) ? xyId : null );
 	}	
 	
 	//laske hexan keskipisteen koordinaatit
@@ -105,15 +87,7 @@ public class Hex extends JPanel{
 		return r;
 	}
 
-	public void setR(int r) {
-		this.r = r;
-	}
-
 	public int[] getXyId() {
 		return xyId;
 	}
-
-	
-
-
 }

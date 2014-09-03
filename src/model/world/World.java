@@ -2,16 +2,17 @@ package model.world;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class World {
+public class World implements iWorld{
 
 	public ArrayList<Hex> world = new ArrayList<Hex>(); //lopullinen maailma joka piirret‰‰n ja joka on julkinen muille luokille
-	
+	int hexID[]=new int[2];
 /*
  * Luokka luo ja piirt‰‰ pelikent‰n resources/kartta.txt datan mukaan.
  * Konstruktori kutsuu createMap metodia, joka lukee tiedostosta pelikent‰n(maailman) mallin ja tallentaa sen boardMap -muuttujaan.
@@ -23,7 +24,7 @@ public class World {
 		createMap();  //Konstruktori kutsuu metodia joka huolehtii maailman luonnista
 	}
 
-public ArrayList<String> loadMap(String mapFile) throws IOException{
+	public ArrayList<String> loadMap(String mapFile) throws IOException{
 		
 		//Alustetaan file objektit
 		File file = new File(mapFile);
@@ -78,22 +79,16 @@ public ArrayList<String> loadMap(String mapFile) throws IOException{
 				
 				g.setColor(getColor(i));					//haetaan tyypin mukaan fillColor
 				g.fillPolygon(world.get(i).getHex());			//piirret‰‰n hex objecti
-				if(world.get(i).isSelected()){
-					g.setColor(Color.RED);
-				}
-				else{
-				g.setColor(Color.black);					//V‰ri vaihdetaan takaisin mustaksi
-				}
-				
+				g.setColor(world.get(i).isSelected() ? Color.RED : Color.BLACK); //jos hexa isSelected sitten Color.RED, muutoin color.BLACK 
 				g.drawPolygon(world.get(i).getHex());			//piirret‰‰n polygoni uudestaan, ett‰ saadaan reunat mukaan
-				
+
 				int[]hexCenter=world.get(i).hexCenter();
 					g.drawString(world.get(i).getType(),hexCenter[0],hexCenter[1]); //piirret‰‰n hexan tyyppi
 			}
 		}
 	}
 
-	private Color getColor(int i) {
+	public Color getColor(int i) {
 		//Switch case ja jotenkin enumit t‰nne?
 		//t‰m‰ elegantiksi
 		
@@ -105,4 +100,42 @@ public ArrayList<String> loadMap(String mapFile) throws IOException{
 			return Color.BLUE;}
 		return null;
 	}
+
+	//Haetaan hiiren pixeli koordinaatin mukaan ja kutsutaan setHex metodia, joka asettaa hexan is selected booleanin arvon "true". Palautetaan hexan koordinaatti
+	public int[] selectHex(Point point){ 
+		
+		for(Hex selection:world){		
+			hexID = selection.hexHit(point.x, point.y);
+			if(hexID != null){
+				setHex(hexID);
+				return hexID;
+			}}
+		return null;
+		}
+		
+//	setHex metodi: t‰ss‰ on k‰ytetty ns. ternary operaatiota, mill‰ on korvattu if -rakenne.
+//	esim: foo[0]==target.getXyId()[0] && foo[1]==target.getXyId()[1] tarkistaa ett‰ hexan lokaatio m‰ts‰‰
+//	jos t‰m‰ on true, target.setSelected metodi saa arvon true, muutoin false.
+	public void setHex(int[] foo){
+		for(Hex target:world)
+			target.setSelected( foo[0]==target.getXyId()[0] && foo[1]==target.getXyId()[1] ? true:false);
+	}
+
+	@Override
+	public int[] getHexCenterPosition(int[] hexID) {
+		int res[] = new int[2];
+		for(Hex testHex : world){
+			if(testHex.xyId[0]==hexID[0] && testHex.xyId[1]==hexID[1])
+				res = testHex.hexCenter();
+		}
+		return res;
+	}
+
+	
+
+
+
+
+
+
 }
