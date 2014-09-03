@@ -1,10 +1,13 @@
 package model.units;
 
+import java.awt.Image;
+
 
 public abstract class Unit implements Actions{
 
 	int[]xyHex = new int[2];
 	int[]xyLoc = new int[2];
+	Image img;
 	
 	public Unit(){
 	}

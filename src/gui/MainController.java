@@ -36,7 +36,7 @@ public MainController() throws InterruptedException{
 		setVisible(true);
 		while(true){
 			bC.repaint();
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}
 	}
 }

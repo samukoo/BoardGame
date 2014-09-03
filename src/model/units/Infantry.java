@@ -1,7 +1,10 @@
 package model.units;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Infantry extends Unit {
 
@@ -10,18 +13,18 @@ public class Infantry extends Unit {
 	
 	public Infantry(){
 		
-	}
-	
-	public Infantry(int[] xyHex, int[]xyLoc) {
-		super(xyHex, xyLoc);
-	}
-	
-	@Override
-	public void move(int x, int y, int[] xYcoord) {
-		// TODO Auto-generated method stub
-		
+		File file = new File("src/resources/graph/infantry.png");
+		try {
+			img = ImageIO.read(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
+	@Override
+	public void move(int[] xy) {
+		// TODO Auto-generated method stub
+	}
 
 	@Override
 	public String getType() {
@@ -29,21 +32,21 @@ public class Infantry extends Unit {
 	}
 
 	@Override
-	public BufferedImage getImage(){
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int[] getImageDimension(){
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getCost() {
 		return cost;
 	}
 
+	@Override
+	public Image getImage() {
+		return img;
+	}
+
+	@Override
+	public int[] getImageDimension() {
+		int imageDimension[] = new int[2];
+		imageDimension[0] = img.getWidth(null);
+		imageDimension[1] = img.getHeight(null);
+		return imageDimension;
+	}
 	
 }

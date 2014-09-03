@@ -11,7 +11,6 @@ public class Tank extends Unit{
 	
 	private String type = "Tank";
 	private static int cost = 2;
-	private Image img;
 	
 	public Tank(){
 	
@@ -19,22 +18,13 @@ public class Tank extends Unit{
 		try {
 			img = ImageIO.read(file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	/*
-	public Tank(int[] xyHex, int[]xyLoc) {
-		super(xyHex, xyLoc);
-	}*/
-
 	@Override
-	public void move(int xHex, int yHex, int[] xyCoord) {
-		super.xyHex[0] = xHex;
-		super.xyHex[1] = yHex;
-		super.xyLoc[0] = xyCoord[0];
-		super.xyLoc[1] = xyCoord[1];
+	public void move(int[] xyCoord) {
+		
 	}
 
 	@Override
@@ -52,7 +42,6 @@ public class Tank extends Unit{
 		int imageDimension[] = new int[2];
 		imageDimension[0] = img.getWidth(null);
 		imageDimension[1] = img.getHeight(null);
-		
 		return imageDimension;
 	}
 
