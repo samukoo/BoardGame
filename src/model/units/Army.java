@@ -2,6 +2,8 @@ package model.units;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.game.Player;
+
 /**
  * @author kotissa
  * This Class describes the army. Player has certain amount of points to spend in units
@@ -9,7 +11,7 @@ import java.util.List;
  * one point left to one Infantry unit. Or the player can just buy 5 infantry units and hope for the best.
  */
 
-public class Army {
+public class Army{
 
 	private int armySize = 0;
 	private int armyPoints = 5;

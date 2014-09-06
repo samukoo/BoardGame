@@ -32,6 +32,7 @@ public class Field extends World{
 		for(Unit unit : deployedUnits){
 			int[] center = getHexCenterPosition(unit.getXyHex()); //laskeskellaan hexan center unitin piirtoa varten
 			int[] dim = unit.getImageDimension(); //pyydet‰‰n kuvan dimensiot, ett‰ voidaan keskitt‰‰ kuva keskelle hexaa
+
 			g.drawImage(unit.getImage(),
 						center[0]-dim[0]/2,		//x piste
 						center[1]-dim[1]/2,		//y piste

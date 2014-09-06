@@ -44,15 +44,9 @@ public class BoardController extends JPanel implements MouseListener{
 	
 	public void setArmy(Army army){
 		List<Unit>recruits = army.getArmyAsList();	//Puretaan armeija recruiment listaan uniteiksi
-		
 		recruits.get(0).setXyHex(selectedHex);
-		
-		
 		field.orderToField(!recruits.isEmpty() ? recruits.get(0) : null ); //jos lista ei ole tyhjä, komenna ensimmäinen yksikkö kentälle
 		recruits.remove(0);			//ja poista se listasta
-	
-		
-	
 	}
 	
 	public void showArmy(){
@@ -61,6 +55,24 @@ public class BoardController extends JPanel implements MouseListener{
 			System.out.println(res.next().getType());
 	}
 
+	public void updateGame(){
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		selectedHex = field.selectHex(new Point(e.getPoint()));

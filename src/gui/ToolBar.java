@@ -21,30 +21,37 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
+import model.game.Match;
+import model.game.Player;
 import model.units.Army;
 import model.units.ArmyController;
 import model.units.Infantry;
 import model.units.Tank;
 
 
-public class ToolBar extends JPanel{
+public class ToolBar extends JPanel implements ActionListener{
 	
-	private JButton btn1;
-	private JButton btn2;
-	private JButton btn3;
+	private JButton deploy;
+	private JButton move;
+	private JButton buy;
+	private JButton endTurn;
 	private JRadioButton rad1;
 	private JRadioButton rad2;
 	private ButtonGroup unitGroup;
 	private JLabel inventory;
+	private JLabel playerName = new JLabel("Player 1");
 	private JTextArea textArea;
 	private ArmyController armyController;
 	private EventListener event;
+	private Match match;
+	
 	
 	public ToolBar(){
 		
-		btn1 = new JButton("DeployUnit");
-		btn2 = new JButton("MoveUnit");
-		btn3 = new JButton("Buy Unit");
+		deploy = new JButton("DeployUnit");
+		move = new JButton("MoveUnit");
+		buy = new JButton("Buy Unit");
+		endTurn = new JButton("End Turn");
 		rad1 = new JRadioButton("Tank");
 		rad2 = new JRadioButton("Infantry");
 		rad1.setSelected(true);
@@ -56,30 +63,15 @@ public class ToolBar extends JPanel{
 		inventory = new JLabel("Inventory:");
 		textArea = new JTextArea(3,7);
 		armyController = new ArmyController();
+		match = new Match();
 		
-//		deploy nappi
-		btn1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Army res = armyController.getArmy();
-				event.btnListener(res);
-				
-			}
-		});
 		
-//		buy nappi		
-		btn3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String unit = unitGroup.getSelection().getActionCommand();
-				if(unit == "Tank"){
-					Tank tank = new Tank();
-					armyController.addUnits(tank);
-				}
-				if(unit == "Infantry"){
-					Infantry infantry = new Infantry();
-					armyController.addUnits(infantry);
-				}
-			}
-		});
+		
+		deploy.addActionListener(this);
+		move.addActionListener(this);
+		buy.addActionListener(this);
+		endTurn.addActionListener(this);
+		
 		layOutSetup();
 	}
 	
@@ -87,6 +79,36 @@ public class ToolBar extends JPanel{
 		this.event = event;
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == move)
+			System.out.println("move unit");
+		
+		if(e.getSource() == endTurn){
+			
+			match.getCurrentPlayer();
+		}
+		
+		if(e.getSource() == buy){
+		
+			String unit = unitGroup.getSelection().getActionCommand();
+			if(unit == "Tank"){
+				Tank tank = new Tank();
+				armyController.addUnits(tank);
+			}
+			if(unit == "Infantry"){
+				Infantry infantry = new Infantry();
+				armyController.addUnits(infantry);
+			}
+		}
+		if(e.getSource() == deploy){
+			Army res = armyController.getArmy();
+			event.btnListener(res);
+		}
+	}
+	
+	
+	
 	public void layOutSetup(){
 		
 		setLayout(new GridBagLayout());
@@ -102,12 +124,24 @@ public class ToolBar extends JPanel{
 		gc.fill = GridBagConstraints.NONE;
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 5, 0, 5);
-		add(btn1, gc);
+		add(playerName, gc);
+		
+		
+////////FIrst +1 row ///////////
+		gc.weightx = 1;
+		gc.weighty = 0.05;
+		
+		gc.gridx = 0;
+		gc.gridy++;
+		gc.fill = GridBagConstraints.NONE;
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(0, 5, 0, 5);
+		add(deploy, gc);
 		
 		gc.gridx = 1;
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 5, 0, 5);
-		add(btn2, gc);
+		add(move, gc);
 ////////Second row ///////////
 		gc.weightx = 1;
 		gc.weighty = 0.05;
@@ -117,7 +151,7 @@ public class ToolBar extends JPanel{
 		gc.fill = GridBagConstraints.NONE;
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 0, 0, 0);
-		add(btn3, gc);
+		add(buy, gc);
 
 ////////Third row ///////////
 		gc.weightx = 1;
@@ -150,5 +184,16 @@ public class ToolBar extends JPanel{
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 5, 0, 5);
 		add(textArea, gc);
+	
+////////Fifth row ///////////
+		gc.weightx = 1;
+		gc.weighty = 1;
+		
+		gc.gridx = 0;
+		gc.gridy++;
+		gc.fill = GridBagConstraints.NONE;
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(0, 0, 0, 0);
+		add(endTurn , gc);
 	}
 }
