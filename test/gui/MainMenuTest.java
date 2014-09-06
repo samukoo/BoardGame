@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MainMenuTest {
@@ -18,6 +19,7 @@ public class MainMenuTest {
 	}
 
 	@Test
+	@Ignore
 	public void testMenuPanel() {
 		//CUT
 		MainMenu menu = new MainMenu();
