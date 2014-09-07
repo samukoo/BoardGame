@@ -35,7 +35,6 @@ public MainController() throws InterruptedException{
 		
 		setVisible(true);
 		while(true){
-//			bC.updateGame();
 			bC.repaint();
 			Thread.sleep(1000);
 		}

@@ -14,6 +14,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,15 +32,16 @@ import model.units.Tank;
 
 public class ToolBar extends JPanel implements ActionListener{
 	
+	private Color bgColor = Color.orange;
 	private JButton deploy;
 	private JButton move;
 	private JButton buy;
 	private JButton endTurn;
-	private JRadioButton rad1;
-	private JRadioButton rad2;
+	private JRadioButton tank;
+	private JRadioButton infantry;
 	private ButtonGroup unitGroup;
 	private JLabel inventory;
-	private JLabel playerName = new JLabel("Player 1");
+	private JLabel playerName;
 	private JTextArea textArea;
 	private ArmyController armyController;
 	private EventListener event;
@@ -52,20 +54,29 @@ public class ToolBar extends JPanel implements ActionListener{
 		move = new JButton("MoveUnit");
 		buy = new JButton("Buy Unit");
 		endTurn = new JButton("End Turn");
-		rad1 = new JRadioButton("Tank");
-		rad2 = new JRadioButton("Infantry");
-		rad1.setSelected(true);
-		rad1.setActionCommand("Tank");
-		rad2.setActionCommand("Infantry");
+		
+		tank = new JRadioButton("Tank");
+		tank.setBackground(bgColor);
+		infantry = new JRadioButton("Infantry");
+		infantry.setBackground(bgColor);
+		
+			tank.setSelected(true);
+		tank.setActionCommand("Tank");
+		infantry.setActionCommand("Infantry");
 		unitGroup = new ButtonGroup();
-		unitGroup.add(rad1);
-		unitGroup.add(rad2);
+		unitGroup.add(tank);
+		unitGroup.add(infantry);
 		inventory = new JLabel("Inventory:");
+		
 		textArea = new JTextArea(3,7);
+		textArea.setBorder(BorderFactory.createEtchedBorder());
 		armyController = new ArmyController();
+		
+		playerName = new JLabel();
+		
 		match = new Match();
 		
-		
+		playerName.setText("Player " + match.getCurrentPlayer().getName() + " has control");
 		
 		deploy.addActionListener(this);
 		move.addActionListener(this);
@@ -85,8 +96,8 @@ public class ToolBar extends JPanel implements ActionListener{
 			System.out.println("move unit");
 		
 		if(e.getSource() == endTurn){
-			
-			match.getCurrentPlayer();
+			match.changeCurrent_player();
+			playerName.setText("Player " + match.getCurrentPlayer().getName() + " has control");
 		}
 		
 		if(e.getSource() == buy){
@@ -95,6 +106,7 @@ public class ToolBar extends JPanel implements ActionListener{
 			if(unit == "Tank"){
 				Tank tank = new Tank();
 				armyController.addUnits(tank);
+				
 			}
 			if(unit == "Infantry"){
 				Infantry infantry = new Infantry();
@@ -113,7 +125,7 @@ public class ToolBar extends JPanel implements ActionListener{
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
-		setBackground(Color.gray);
+		setBackground(bgColor);
 		
 ////////FIrst row ///////////
 		gc.weightx = 1;
@@ -162,12 +174,12 @@ public class ToolBar extends JPanel implements ActionListener{
 		gc.fill = GridBagConstraints.NONE;
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 0, 0, 0);
-		add(rad1, gc);
+		add(tank, gc);
 
 		gc.gridx = 1;
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 5, 0, 5);
-		add(rad2, gc);
+		add(infantry, gc);
 	
 ////////Fourth row ///////////
 		gc.weightx = 1;

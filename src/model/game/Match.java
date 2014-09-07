@@ -17,12 +17,12 @@ import java.util.List;
  */
 public class Match{
 	private int turnNumber;
-	private boolean deployPhase;
-	private List<Turn> turn = new ArrayList<Turn>();
 	private List<Player> players = new ArrayList<Player>();
 	
 	public Match(){
 		turnNumber = 0;
+//		addPlayer(new Player("foo", true));
+//		addPlayer(new Player("bar", false));
 	}
 
 	public Player getCurrentPlayer(){
@@ -43,9 +43,6 @@ public class Match{
 			if(current.isCurrent())
 				return current;
 		}
-		
-		
-		
 		return null;
 	}
 	
@@ -62,10 +59,11 @@ public class Match{
 		return players;
 	}
 
-	public Player changeCurrent_player() {
-		
-		return new Player("foo", true);
+	public List changeCurrent_player(){
+		for(Player item:players){
+			item.setCurrent(item.isCurrent() ? false : true);
+		}
+		return players;
 	}
-	
 	
 }

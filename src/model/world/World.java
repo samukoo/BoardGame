@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 public class World implements iWorld{
 
-	public ArrayList<Hex> world = new ArrayList<Hex>(); //lopullinen maailma joka piirret‰‰n ja joka on julkinen muille luokille
+	public ArrayList<Hex> world = new ArrayList<Hex>(); //lopullinen maailma joka piirretaan ja joka on julkinen muille luokille
 	int hexID[]=new int[2];
 /*
- * Luokka luo ja piirt‰‰ pelikent‰n resources/kartta.txt datan mukaan.
- * Konstruktori kutsuu createMap metodia, joka lukee tiedostosta pelikent‰n(maailman) mallin ja tallentaa sen boardMap -muuttujaan.
- * boardMap datalla luodaan varsinainen hexa maailma, joka tallennetaan world -muuttujaan jossa sit‰ s‰ilytet‰‰n. 
- * Lopuksi world muuttujan datan persuteella maailma piirret‰‰n ruudulle.
+ * Luokka luo ja piirtaa pelikentan resources/kartta.txt datan mukaan.
+ * Konstruktori kutsuu createMap metodia, joka lukee tiedostosta pelikentan(maailman) mallin ja tallentaa sen boardMap -muuttujaan.
+ * boardMap datalla luodaan varsinainen hexa maailma, joka tallennetaan world -muuttujaan jossa sita sailytetaan. 
+ * Lopuksi world muuttujan datan persuteella maailma piirretaan ruudulle.
  */
 	
 	public World(){
@@ -44,18 +44,18 @@ public class World implements iWorld{
 		//1. luodaan varasto kartalle
 		ArrayList<String>boardMap = new ArrayList<String>(); //boardmap on tiedostosta ladattu maailman malli
 		
-		//2. try catch blocki, ei jaksa laittaa metodeja heitt‰m‰‰n poikkeuksia
+		//2. try catch blocki, ei jaksa laittaa metodeja heittamaan poikkeuksia
 		try {
 			boardMap = loadMap("src/resources/kartta.txt"); //ladataan data boardMap muuttujaan tiedostosta
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
 		
-		// 3. j=rivit, i=merkit yksitt‰isell‰ rivill‰
+		// 3. j=rivit, i=merkit yksittaisella rivilla
 		for(int j=0; j<boardMap.size();j++){ 		//..rivien lkm (boardMap.size) = alkioiden lkm. 
-			for(int i=0; i<boardMap.get(j).length(); i++){		//..merkkien lkm rivill‰ (alkion Stringin pituus .length)
-				Character hexType = boardMap.get(j).charAt(i);	//tuodaan tietylt‰ rivilt‰, yksitt‰inen MERKKI hexType -muuttujaan
-				world.add(new Hex(i, j, hexType.toString()));	//Luodaan uusi HEXa maailmaan, Character -merkki muutetaan Stringiksi ett‰ Hex konstructori hyv‰ksyy sen.
+			for(int i=0; i<boardMap.get(j).length(); i++){		//..merkkien lkm rivilla (alkion Stringin pituus .length)
+				Character hexType = boardMap.get(j).charAt(i);	//tuodaan tietylta rivilta, yksittainen MERKKI hexType -muuttujaan
+				world.add(new Hex(i, j, hexType.toString()));	//Luodaan uusi HEXa maailmaan, Character -merkki muutetaan Stringiksi etta Hex konstructori hyvaksyy sen.
 			}
 		}
 		world = convertEmptyHex(world);
@@ -63,7 +63,7 @@ public class World implements iWorld{
 	}
 	
 	public ArrayList<Hex> convertEmptyHex(ArrayList<Hex> world){
-		// 4. K‰yd‰‰n l‰pi maailman kaikki hexat. Mik‰li kartassa on tyhji‰ hexatyyppej‰ (type = " "), korvataan v‰lilyˆnti "null":lla selvyyden vuoksi.
+		// 4. Kaydaan lapi maailman kaikki hexat. Mikali kartassa on tyhjia hexatyyppeja (type = " "), korvataan valilyˆnti "null":lla selvyyden vuoksi.
 		for(int i = 0; i<world.size();i++){
 			if(world.get(i).getType().equals(" ")){
 				world.get(i).setType("null");
@@ -75,22 +75,22 @@ public class World implements iWorld{
 	//Piirtometodi
 	public void drawWorld(Graphics g){
 		for(int i= 0;i<world.size();i++){					//Maailman kokoinen piirtoloop
-			if(!world.get(i).getType().equals("null")){		//piirret‰‰n, mik‰li type EI ole "null"
+			if(!world.get(i).getType().equals("null")){		//piirretaan, mikali type EI ole "null"
 				
 				g.setColor(getColor(i));					//haetaan tyypin mukaan fillColor
-				g.fillPolygon(world.get(i).getHex());			//piirret‰‰n hex objecti
+				g.fillPolygon(world.get(i).getHex());			//piirretaan hex objecti
 				g.setColor(world.get(i).isSelected() ? Color.RED : Color.BLACK); //jos hexa isSelected sitten Color.RED, muutoin color.BLACK 
-				g.drawPolygon(world.get(i).getHex());			//piirret‰‰n polygoni uudestaan, ett‰ saadaan reunat mukaan
+				g.drawPolygon(world.get(i).getHex());			//piirretaan polygoni uudestaan, etta saadaan reunat mukaan
 
 				int[]hexCenter=world.get(i).hexCenter();
-					g.drawString(world.get(i).getType(),hexCenter[0],hexCenter[1]); //piirret‰‰n hexan tyyppi
+					g.drawString(world.get(i).getType(),hexCenter[0],hexCenter[1]); //piirretaan hexan tyyppi
 			}
 		}
 	}
 
 	public Color getColor(int i) {
-		//Switch case ja jotenkin enumit t‰nne?
-		//t‰m‰ elegantiksi
+		//Switch case ja jotenkin enumit tanne?
+		//tama elegantiksi
 		
 		if(world.get(i).getType().equals("b")){
 		return Color.YELLOW;}
@@ -113,9 +113,9 @@ public class World implements iWorld{
 		return null;
 		}
 		
-//	setHex metodi: t‰ss‰ on k‰ytetty ns. ternary operaatiota, mill‰ on korvattu if -rakenne.
-//	esim: foo[0]==target.getXyId()[0] && foo[1]==target.getXyId()[1] tarkistaa ett‰ hexan lokaatio m‰ts‰‰
-//	jos t‰m‰ on true, target.setSelected metodi saa arvon true, muutoin false.
+//	setHex metodi: tassa on kaytetty ns. ternary operaatiota, milla on korvattu if -rakenne.
+//	esim: foo[0]==target.getXyId()[0] && foo[1]==target.getXyId()[1] tarkistaa etta hexan lokaatio matsaa
+//	jos tama on true, target.setSelected metodi saa arvon true, muutoin false.
 	public void setHex(int[] foo){
 		for(Hex target:world)
 			target.setSelected( foo[0]==target.getXyId()[0] && foo[1]==target.getXyId()[1] ? true:false);

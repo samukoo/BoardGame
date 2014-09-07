@@ -24,19 +24,19 @@ public class BattleField extends World {
 	}
 	
 	public String moveUnit(int y, int x){
-		//ELI TÄSSÄ Y & X ON TARGET hexa
+		//ELI TaSSa Y & X ON TARGET hexa
 		//1: ei saa liikkua mereen
 		
 		int[]xYcoord = new int[2];
 		
-		for(int i=0; i<world.size();i++){ 		//1.for luuppi selvittää starttihexan 
+		for(int i=0; i<world.size();i++){ 		//1.for luuppi selvittaa starttihexan 
 			int[]xyID =world.get(i).getXyId();
 			
 			if(xyID[1] == y && xyID[0] == x){   
 				xYcoord = world.get(i).hexCenter();
 			}
 		}
-		if(!getWorldType(y,x).equals("s")&& isNextHex(y, x)){  //Tämä IF lause määrittää liikkumisen!
+		if(!getWorldType(y,x).equals("s")&& isNextHex(y, x)){  //Tama IF lause maarittaa liikkumisen!
 		unitList.get(0).move(x, y, xYcoord);		//index nolla!
 		System.out.println("X: " + unitList.get(0).getXyLoc()[0] + " Y: " + unitList.get(0).getXyLoc()[1]);
 		return "ok";
@@ -51,19 +51,19 @@ public class BattleField extends World {
 	}
 	
 	public boolean isNextHex(int y, int x){
-		//tarkistaa onko hexa vieressä?
+		//tarkistaa onko hexa vieressa?
 		Hex startHex = new Hex();
 			
-			for(int i=0; i<world.size();i++){ 		//1.for luuppi selvittää starttihexan 
+			for(int i=0; i<world.size();i++){ 		//1.for luuppi selvittaa starttihexan 
 				int[]xyID =world.get(i).getXyId();
 				if(xyID[1] == 3 && xyID[0] == 3){   //pieni kovakoodaus helpottamaan
 					startHex= world.get(i);
 				}
 			}
 				int[]centerXY = startHex.hexCenter();	//2. lasketaan start hexan xy keskipiste
-				int result[][] = inspectHexBoard(centerXY);	//3. haetaan osumat hexan ympäriltä
+				int result[][] = inspectHexBoard(centerXY);	//3. haetaan osumat hexan ymparilta
 				
-				for(int i = 0; i<result.length; i++){		//4. tämä palauttaa true mikäli arvioitava hexa on start hexan vieressä
+				for(int i = 0; i<result.length; i++){		//4. tama palauttaa true mikali arvioitava hexa on start hexan vieressa
 				if(y==result[i][0] && x==result[i][1])
 					return true;
 				
@@ -71,7 +71,7 @@ public class BattleField extends World {
 			return false;
 		}
 	
-	public int[][] inspectHexBoard(int[]centerXY){	//tässä tehdään näkymätön hexa xy keskipisteen ympärille. sen kulmapisteiden avulla poimitaan hexan karttakoordinaatit
+	public int[][] inspectHexBoard(int[]centerXY){	//tassa tehdaan nakymatön hexa xy keskipisteen ymparille. sen kulmapisteiden avulla poimitaan hexan karttakoordinaatit
 		int[][]res = new int[6][2];
 		int counter = 0;
 		int r = 65;

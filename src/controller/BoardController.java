@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import model.battlefield.Field;
+import model.game.Match;
 import model.units.Army;
 import model.units.Unit;
 
@@ -23,7 +24,6 @@ public class BoardController extends JPanel implements MouseListener{
 	private Army army;
 	private Field field = new Field();
 	private int selectedHex[] = new int[2];
-	
 	
 	public BoardController(){
 		

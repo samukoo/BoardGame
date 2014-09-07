@@ -1,31 +1,33 @@
 package model.game;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
-
 public class TestMatch {
-
-	@Before
-	public void setUp() throws Exception {
-	}
 
 	@Test
 	public void test_change_current_player(){
 		//Given
 		Match CUT = new Match();
+		Player currentPlayer = new Player("foo", true);
+		Player not_currentPlayer = new Player("bar", false);
+		CUT.addPlayer(currentPlayer);
+		CUT.addPlayer(not_currentPlayer);
 		//When
-		Player result = CUT.changeCurrent_player();
+		List<Player> result = CUT.changeCurrent_player();
 		//Then
 		assertNotNull(result);
+		assertFalse(result.get(0).isCurrent());
+		assertTrue(result.get(1).isCurrent());
 	}
-	
-	
-	
 	
 	@Test
 	public void test_Get_Current_Player() {
