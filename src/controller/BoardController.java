@@ -15,8 +15,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import model.battlefield.Field;
+import model.game.Army;
 import model.game.Match;
-import model.units.Army;
 import model.units.Unit;
 
 public class BoardController extends JPanel implements MouseListener{
@@ -41,7 +41,7 @@ public class BoardController extends JPanel implements MouseListener{
 		field.drawWorld(g2d);
 		field.drawUnits(g2d);
 	}
-	
+/*	
 	public void setArmy(Army army){
 		List<Unit>recruits = army.getArmyAsList();	//Puretaan armeija recruiment listaan uniteiksi
 		recruits.get(0).setXyHex(selectedHex);
@@ -54,7 +54,7 @@ public class BoardController extends JPanel implements MouseListener{
 		while(res.hasNext())
 			System.out.println(res.next().getType());
 	}
-
+*/
 	public void updateGame(){
 
 	}

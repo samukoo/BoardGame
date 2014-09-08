@@ -8,6 +8,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -23,9 +24,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import model.game.Match;
-import model.game.Player;
-import model.units.Army;
-import model.units.ArmyController;
 import model.units.Infantry;
 import model.units.Tank;
 
@@ -42,8 +40,8 @@ public class ToolBar extends JPanel implements ActionListener{
 	private ButtonGroup unitGroup;
 	private JLabel inventory;
 	private JLabel playerName;
+	private JLabel turnNr;
 	private JTextArea textArea;
-	private ArmyController armyController;
 	private EventListener event;
 	private Match match;
 	
@@ -70,13 +68,15 @@ public class ToolBar extends JPanel implements ActionListener{
 		
 		textArea = new JTextArea(3,7);
 		textArea.setBorder(BorderFactory.createEtchedBorder());
-		armyController = new ArmyController();
 		
 		playerName = new JLabel();
+		turnNr = new JLabel("Turn: 2");
+		turnNr.setFont(new Font("ITALIC", Font.BOLD, 48));
+		match = new Match("Alusta peli");
 		
-		match = new Match();
+		turnNr.setText("Turn: "+match.getTurnNr());
+		playerName.setText("Player " + match.getCurrentPlayer().getOwner() + " has control");
 		
-		playerName.setText("Player " + match.getCurrentPlayer().getName() + " has control");
 		
 		deploy.addActionListener(this);
 		move.addActionListener(this);
@@ -92,32 +92,43 @@ public class ToolBar extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == endTurn){
+			match.endTurn();
+			turnNr.setText("Turn: "+match.getTurnNr());
+			playerName.setText("Player " + match.getCurrentPlayer().getOwner() + " has control");
+		}
+		
+		
+		
+		
+		
+		
+		
 		if(e.getSource() == move)
 			System.out.println("move unit");
 		
-		if(e.getSource() == endTurn){
-			match.changeCurrent_player();
-			playerName.setText("Player " + match.getCurrentPlayer().getName() + " has control");
-		}
+		
 		
 		if(e.getSource() == buy){
 		
 			String unit = unitGroup.getSelection().getActionCommand();
 			if(unit == "Tank"){
 				Tank tank = new Tank();
-				armyController.addUnits(tank);
+//				armyController.addUnits(match.getCurrentPlayer(), tank);
 				
 			}
 			if(unit == "Infantry"){
 				Infantry infantry = new Infantry();
-				armyController.addUnits(infantry);
+//				armyController.addUnits(match.getCurrentPlayer(),infantry);
 			}
 		}
 		if(e.getSource() == deploy){
-			Army res = armyController.getArmy();
-			event.btnListener(res);
 		}
-	}
+		}
+//			Army res = armyController.getArmy();
+			
+//			event.btnListener(res);
+		
 	
 	
 	
@@ -183,7 +194,7 @@ public class ToolBar extends JPanel implements ActionListener{
 	
 ////////Fourth row ///////////
 		gc.weightx = 1;
-		gc.weighty = 1;
+		gc.weighty = 0.05;
 		
 		gc.gridx = 0;
 		gc.gridy++;
@@ -196,6 +207,19 @@ public class ToolBar extends JPanel implements ActionListener{
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 5, 0, 5);
 		add(textArea, gc);
+		
+////////Fourth row ///////////
+		gc.weightx = 1;
+		gc.weighty = 1;
+		
+		gc.gridx = 0;
+		gc.gridy++;
+		gc.fill = GridBagConstraints.NONE;
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(0, 0, 0, 0);
+		add(turnNr, gc);
+
+		
 	
 ////////Fifth row ///////////
 		gc.weightx = 1;

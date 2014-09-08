@@ -1,8 +1,9 @@
-package model.units;
+package model.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.game.Player;
+import model.units.Tank;
+import model.units.Unit;
 
 /**
  * @author kotissa
@@ -13,29 +14,26 @@ import model.game.Player;
 
 public class Army{
 
-	private int armySize = 0;
-	private int armyPoints = 5;
-	private List<Unit> army = new ArrayList<Unit>();
+	private List<Unit>army = new ArrayList<Unit>();
+	private String owner;
 	
-	protected List<Unit> addUnit(Unit unit){
+	public int addUnit(Unit unit) {
 		army.add(unit);
-		return army;
+		return army.size();
 	}
 
-	public List getArmyAsList(){
-		return army;
+	public int getArmySize() {
+		return army.size();
 	}
-		
-	public int getPoints(){
-		return armyPoints;
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getOwner() {
+		return owner;
 	}
 	
-	protected void setPoints(Unit unit){
-		armyPoints = armyPoints - unit.getCost();
-	}
-		
 	
-
-
 
 }

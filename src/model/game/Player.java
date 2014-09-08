@@ -1,30 +1,36 @@
 package model.game;
+import model.units.Tank;
 /**
- * Pelaaja luokka. Tieto pelaajasta, ja hänen joukoista
+ * Pelaaja luokka. Tieto pelaajasta, ja hanen joukoista
  */
-import model.units.Army;
+import model.units.Unit;
 
-public class Player {
+public class Player extends ArmyController {
 
-	private String name;
-	boolean current;
+	private int points = 5;
 	
-	public Player(String name, boolean current){
-		this.name = name;
-		this.current = current;
+	
+	public Player(String owner){
+		super.setOwner(owner);
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void buyUnit(Tank mockTank) {
+		
+		try {
+			this.points = checkPoints(points, mockTank);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
-	public String getName(){
-		return name;
-	}
-
-	public boolean isCurrent() {
-		return current;
-	}
-
-	public void setCurrent(boolean current) {
-		this.current = current;
-	}
+	
+	
+	
 	
 	
 }

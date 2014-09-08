@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import model.units.Army;
+import model.game.Army;
 import controller.BoardController;
 import controller.UserAction;
 
@@ -29,7 +29,7 @@ public MainController() throws InterruptedException{
 			
 			@Override
 			public void btnListener(Army army) {
-				bC.setArmy(army);
+//				bC.setArmy(army);
 			}
 		});
 		

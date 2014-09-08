@@ -1,75 +1,121 @@
 package model.units;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import model.game.Army;
+import model.game.ArmyController;
+import model.game.Player;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class ArmyTest {
 
+	private Army armyCUT; //Class under test
+	private ArmyController armyControllerCUT;
+	private String owner;
 	
 	
 	@Before
-	public void setUp() throws Exception {
-		
+	public void setup(){
+		armyCUT = new Army();
+		armyControllerCUT = new ArmyController();
+		owner = "fooBar";
 	}
+	
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
+	
+	@Test
+	public void test_Player_has_not_enough_points(){
+		//Given
+		
+		Player player = new Player(owner);
+		Tank mockTank = mock(Tank.class);
+		int cost = 6;
+		//When
+		when(mockTank.getCost()).thenReturn(cost);
+		
+		//Then Error.class error is thrown
+		exception.expect(Error.class);
+		player.buyUnit(mockTank);
+	}
+	
+	@Test
+	public void test_Player_Add_new_unit(){
+		Player player = new Player(owner);
+		Tank mockTank = mock(Tank.class);
+		when(mockTank.getCost()).thenReturn(2);
+		
+		player.buyUnit(mockTank);
 
+		Army res = player.getArmy();
+		
+		assertEquals( 1, res.getArmySize()); //Armeijan koko on 1
+		assertEquals(owner, res.getOwner() );
+	}
+	
+	
+	
+	
 	@Test
-	public void testAddArmyUnitsHasPoints(){
+	public void test_Player_points_are_decreased(){
 		//Given
-		List<Unit>res = new ArrayList<Unit>();
-		ArmyController SUT = new ArmyController();
-		Tank tank = new Tank();
+		Player player = new Player(owner);
+		Tank mockTank = mock(Tank.class);
+		int cost = 2;
+		int expectedCost = player.getPoints()-cost;
 		//When
-		res=SUT.addUnits(tank);
+		when(mockTank.getCost()).thenReturn(cost);
+		player.buyUnit(mockTank);
+		
 		//Then
-		assertEquals(1, res.size());
+		assertEquals(expectedCost, player.getPoints());
 	}
 	
 	@Test
-	public void testAddUnitHasNoPoints(){
-		//Given
-		List<Unit>res = new ArrayList<Unit>();
-		ArmyController SUT = new ArmyController();
-		Tank tank = mock(Tank.class);
-		//When
-		when(tank.getCost()).thenReturn(6);
-		res=SUT.addUnits(tank);
-		//Then
-		assertEquals(0, res.size());
+	public void test_Player_has_armyPoints(){
+		int expectedPoints = 5;
+		
+		Player player = new Player(owner);
+		
+		int res = player.getPoints();
+		assertEquals(expectedPoints, res);
 	}
 	
+	@Test
+	public void test_player_army_initialization(){
+		String owner = "foobar";
+		Player playerSUT = new Player(owner);
+		assertEquals(owner, playerSUT.getOwner());
+		
+	}
+	
+	@Test
+	public void controller_returns_armyObject(){
+		Army res = armyControllerCUT.getArmy();
+		assertNotNull(res);
+	}
 		
 	@Test
-	public void testAddArmyUnit() {
+	public void test_Add_ArmyUnit() {
 		//Given setup
-		Army SUT = new Army();
 		Tank mockTank = mock(Tank.class);
 		//When
-		SUT.addUnit(mockTank);
-		List<Unit> res = SUT.getArmyAsList();
+		int res = armyCUT.addUnit(mockTank);
 		//Then
-		assertEquals(1, res.size());
+		assertEquals(1, res);
 	}
 	
 	@Test
-	public void testArmyPointsDecrease(){
-		//Given
-		Army SUT = new Army();
-		int cost = 4;
-		int expected = SUT.getPoints()-cost;
-		//When
-		Tank mockUnit = mock(Tank.class);
-		when(mockUnit.getCost()).thenReturn(cost);
- 		SUT.setPoints(mockUnit);
-		
-		//Then
- 		assertEquals(expected, SUT.getPoints());
+	public void test_Army_has_owner(){
+		String owner = "fooBar";
+		armyCUT.setOwner(owner);
+		String res = armyCUT.getOwner();
+		assertEquals(owner, res);
 	}
-	
-	
 }
