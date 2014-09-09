@@ -14,8 +14,18 @@ import java.io.IOException;
 import org.junit.Test;
 
 
-public class TankTest {
+public class ArmyUnitTest {
 
+	@Test
+	public void test_tank_gets_owner(){
+		String expected = "sauli";
+		Tank tank = new Tank(expected);
+		String res = tank.getOwner();
+
+		assertEquals(expected, res);
+		
+		
+	}
 	
 
 

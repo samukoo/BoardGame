@@ -9,4 +9,5 @@ public interface Actions {
 	public int getCost();
 	public Image getImage();
 	public int[] getImageDimension();
+	public String getOwner();
 }

@@ -10,10 +10,13 @@ import javax.imageio.ImageIO;
 public class Tank extends Unit{
 	
 	private String type = "Tank";
+	private String owner;
 	private static int cost = 2;
 	
-	public Tank(){
+	public Tank(String owner){
 	
+		this.owner = owner;
+		
 		File file = new File("src/resources/graph/tank.png");
 		try {
 			img = ImageIO.read(file);
@@ -48,5 +51,10 @@ public class Tank extends Unit{
 	@Override
 	public int getCost() {
 		return cost;
+	}
+
+	@Override
+	public String getOwner() {
+		return owner;
 	}
 }

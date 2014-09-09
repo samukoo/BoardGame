@@ -102,28 +102,18 @@ public class ToolBar extends JPanel implements ActionListener{
 			playerName.setText("Player " + match.getCurrentPlayer().getOwner() + " has control");
 		}
 		
-		
-		
-		
-		
-		
-		
 		if(e.getSource() == move)
 			System.out.println("move unit");
-		
-		
 		
 		if(e.getSource() == buy){
 		
 			String unit = unitGroup.getSelection().getActionCommand();
 			if(unit == "Tank"){
-				Tank tank = new Tank();
+				Tank tank = new Tank(match.getCurrentPlayer().getOwner());
 				match.shopUnit(tank);
-				
-				
 			}
 			if(unit == "Infantry"){
-				Infantry infantry = new Infantry();
+				Infantry infantry = new Infantry(match.getCurrentPlayer().getOwner());
 				match.shopUnit(infantry);
 			}
 		}

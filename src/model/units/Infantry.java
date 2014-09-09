@@ -9,9 +9,12 @@ import javax.imageio.ImageIO;
 public class Infantry extends Unit {
 
 	private String type = "Infantry";
+	private String owner;
 	private static int cost = 1;
 	
-	public Infantry(){
+	public Infantry(String owner){
+		
+		this.owner=owner;
 		
 		File file = new File("src/resources/graph/infantry.png");
 		try {
@@ -47,6 +50,11 @@ public class Infantry extends Unit {
 		imageDimension[0] = img.getWidth(null);
 		imageDimension[1] = img.getHeight(null);
 		return imageDimension;
+	}
+
+	@Override
+	public String getOwner() {
+		return owner;
 	}
 	
 }

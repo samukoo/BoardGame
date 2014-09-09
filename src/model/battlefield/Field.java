@@ -2,6 +2,7 @@ package model.battlefield;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,10 +33,18 @@ public class Field extends World{
 		for(Unit unit : deployedUnits){
 			int[] center = getHexCenterPosition(unit.getXyHex()); //laskeskellaan hexan center unitin piirtoa varten
 			int[] dim = unit.getImageDimension(); //pyydetaan kuvan dimensiot, etta voidaan keskittaa kuva keskelle hexaa
-
+			int extraWidth = 0;
+			
+			int h = dim[1];
+			int w = unit.getOwner()=="Foobar" ? -dim[0]:dim[0]; //jos player 2, flippaa kuva -> "-dim[0]". dim[0] on kuvan width
+			if(unit.getOwner()=="Foobar"){
+				extraWidth=dim[0];
+			}
+			
 			g.drawImage(unit.getImage(),
-						center[0]-dim[0]/2,		//x piste
+						center[0]-dim[0]/2 + extraWidth,	//x piste (lis‰t‰‰n extraWidth jos player2 koska kuva flipataan horisontaalisti 
 						center[1]-dim[1]/2,		//y piste
+						w,h,	//kuvan width ja height
 						null);
 		}
 	}
