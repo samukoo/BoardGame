@@ -4,16 +4,16 @@ import model.units.Unit;
 
 
 public class ArmyController extends Army{
-
+	
 	public Army getArmy(){
 		return this;
 	}
 	
-	public int checkPoints(int points, Unit mockTank)throws Exception{
+	public int checkPoints(int points, Unit unit)throws Exception{
 
-		if(points >= mockTank.getCost()){
-			points=points-mockTank.getCost();
-			addUnit(mockTank);
+		if(points >= unit.getCost()){
+			points=points-unit.getCost();
+			addUnit(unit);
 		}
 			
 		else{

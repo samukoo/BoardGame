@@ -33,6 +33,11 @@ public class Army{
 	public String getOwner() {
 		return owner;
 	}
+
+	public List<Unit> getArmyAsList() {
+		
+		return army;
+	}
 	
 	
 

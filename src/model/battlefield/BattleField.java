@@ -71,7 +71,7 @@ public class BattleField extends World {
 			return false;
 		}
 	
-	public int[][] inspectHexBoard(int[]centerXY){	//tassa tehdaan nakymatön hexa xy keskipisteen ymparille. sen kulmapisteiden avulla poimitaan hexan karttakoordinaatit
+	public int[][] inspectHexBoard(int[]centerXY){	//tassa tehdaan nakymaton hexa xy keskipisteen ymparille. sen kulmapisteiden avulla poimitaan hexan karttakoordinaatit
 		int[][]res = new int[6][2];
 		int counter = 0;
 		int r = 65;

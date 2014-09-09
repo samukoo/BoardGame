@@ -41,9 +41,12 @@ public class BoardController extends JPanel implements MouseListener{
 		field.drawWorld(g2d);
 		field.drawUnits(g2d);
 	}
-/*	
+	
 	public void setArmy(Army army){
+		
+		
 		List<Unit>recruits = army.getArmyAsList();	//Puretaan armeija recruiment listaan uniteiksi
+		System.out.println(army.getOwner());
 		recruits.get(0).setXyHex(selectedHex);
 		field.orderToField(!recruits.isEmpty() ? recruits.get(0) : null ); //jos lista ei ole tyhjä, komenna ensimmäinen yksikkö kentälle
 		recruits.remove(0);			//ja poista se listasta
@@ -54,7 +57,7 @@ public class BoardController extends JPanel implements MouseListener{
 		while(res.hasNext())
 			System.out.println(res.next().getType());
 	}
-*/
+
 	public void updateGame(){
 
 	}

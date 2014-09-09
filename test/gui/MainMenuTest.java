@@ -18,21 +18,6 @@ public class MainMenuTest {
 	public void setUp() throws Exception {
 	}
 
-	@Test
-	@Ignore
-	public void testMenuPanel() {
-		//CUT
-		MainMenu menu = new MainMenu();
-		JPanel result = menu.menuPanel();
-		assertNotNull(result);
-		
-		Component[] components = result.getComponents();
-		
-		System.out.println(components[0]);
-		
-		
-		
-		
-	}
+	
 
 }

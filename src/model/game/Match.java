@@ -4,16 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import model.units.Unit;
+
 /**
  * @author kotissa
  * Match luokka.
- * Teht‰v‰t:
+ * Tehtavat:
  * Aloittaa ja lopettaa itse taistelun
- * Pit‰‰ kirjaa vuorojen m‰‰r‰st‰ 
+ * Pitaa kirjaa vuorojen maarasta 
  * Hoitaa vuoron vaihdon
  *
  */
-public class Match{
+public class Match implements iMatch{
 
 	private List<Player>players = new ArrayList<Player>();
 	private Player current = null;
@@ -30,6 +32,7 @@ public class Match{
 		setPlayers(player2);
 	}
 	
+	@Override
 	public void setPlayers(Player player) {
 		if(current ==  null){
 			this.current=player;
@@ -37,14 +40,18 @@ public class Match{
 		players.add(player);
 	}
 
-	public List<Player> getPlayers() {
-		return players;
+	@Override
+	public List<Player> shopUnit(Unit unit){
+		Player current = getCurrentPlayer();
+		for(Player player : players)
+			if(player.equals(current)){
+				player.buyUnit(unit);
+				return players;
+			}
+		return null;
 	}
-
-	public Player getCurrentPlayer() {
-		return current;
-	}
-
+	
+	@Override
 	public Player endTurn() {
 		turnNr++;
 		for(Player player : players){
@@ -56,18 +63,29 @@ public class Match{
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Player> getPlayers() {
+		return players;
+	}
 
+	@Override
 	public void setCurrent(Player current) {
 		this.current = current;
 	}
+	
+	@Override
+	public Player getCurrentPlayer() {
+		return current;
+	}
 
+	@Override
 	public int getCurrentPlayerPoints() {
 		return current.getPoints();
 	}
 
+	@Override
 	public int getTurnNr() {
 		return turnNr;
 	}
-	
-	
 }

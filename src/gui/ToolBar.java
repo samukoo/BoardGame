@@ -14,6 +14,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,14 +24,17 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
+import model.game.Army;
 import model.game.Match;
+import model.game.Player;
+import model.game.iMatch;
 import model.units.Infantry;
 import model.units.Tank;
 
 
 public class ToolBar extends JPanel implements ActionListener{
 	
-	private Color bgColor = Color.orange;
+	private Color bgColor = Color.lightGray;
 	private JButton deploy;
 	private JButton move;
 	private JButton buy;
@@ -43,7 +47,7 @@ public class ToolBar extends JPanel implements ActionListener{
 	private JLabel turnNr;
 	private JTextArea textArea;
 	private EventListener event;
-	private Match match;
+	private iMatch match;
 	
 	
 	public ToolBar(){
@@ -71,7 +75,7 @@ public class ToolBar extends JPanel implements ActionListener{
 		
 		playerName = new JLabel();
 		turnNr = new JLabel("Turn: 2");
-		turnNr.setFont(new Font("ITALIC", Font.BOLD, 48));
+		turnNr.setFont(new Font("ITALIC", Font.BOLD, 14));
 		match = new Match("Alusta peli");
 		
 		turnNr.setText("Turn: "+match.getTurnNr());
@@ -114,23 +118,20 @@ public class ToolBar extends JPanel implements ActionListener{
 			String unit = unitGroup.getSelection().getActionCommand();
 			if(unit == "Tank"){
 				Tank tank = new Tank();
-//				armyController.addUnits(match.getCurrentPlayer(), tank);
+				match.shopUnit(tank);
+				
 				
 			}
 			if(unit == "Infantry"){
 				Infantry infantry = new Infantry();
-//				armyController.addUnits(match.getCurrentPlayer(),infantry);
+				match.shopUnit(infantry);
 			}
 		}
 		if(e.getSource() == deploy){
+			Army army = match.getCurrentPlayer().getArmy();
+			event.btnListener(army);
+			}
 		}
-		}
-//			Army res = armyController.getArmy();
-			
-//			event.btnListener(res);
-		
-	
-	
 	
 	public void layOutSetup(){
 		

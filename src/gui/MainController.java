@@ -7,7 +7,6 @@ import javax.swing.JScrollPane;
 
 import model.game.Army;
 import controller.BoardController;
-import controller.UserAction;
 
 public class MainController extends JFrame{
 
@@ -29,7 +28,7 @@ public MainController() throws InterruptedException{
 			
 			@Override
 			public void btnListener(Army army) {
-//				bC.setArmy(army);
+				bC.setArmy(army);				
 			}
 		});
 		

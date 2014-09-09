@@ -33,7 +33,6 @@ public class ArmyTest {
 	@Test
 	public void test_Player_has_not_enough_points(){
 		//Given
-		
 		Player player = new Player(owner);
 		Tank mockTank = mock(Tank.class);
 		int cost = 6;

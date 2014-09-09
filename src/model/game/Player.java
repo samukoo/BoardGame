@@ -8,7 +8,7 @@ import model.units.Unit;
 public class Player extends ArmyController {
 
 	private int points = 5;
-	
+	private int token;
 	
 	public Player(String owner){
 		super.setOwner(owner);
@@ -18,10 +18,10 @@ public class Player extends ArmyController {
 		return points;
 	}
 
-	public void buyUnit(Tank mockTank) {
+	public void buyUnit(Unit unit) {
 		
 		try {
-			this.points = checkPoints(points, mockTank);
+			this.points = checkPoints(points, unit);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
