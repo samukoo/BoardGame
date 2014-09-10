@@ -14,6 +14,8 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import org.mockito.internal.matchers.NotNull;
+
 import model.battlefield.Field;
 import model.game.Army;
 import model.game.Match;
@@ -62,24 +64,24 @@ public class BoardController extends JPanel implements MouseListener{
 
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(e.getButton() == MouseEvent.BUTTON1){
 		selectedHex = field.selectHex(new Point(e.getPoint()));
+		Unit unit = field.selectUnit(selectedHex);
 		System.out.println("X: " +selectedHex[0] + " Y: " +selectedHex[1]);
+			if(unit!=null){
+				System.out.println("Hex has unit: " + unit.getType() + " owned by: " + unit.getOwner());
+			}
+		}
+		
+		if(e.getButton() == MouseEvent.BUTTON3){
+			field.printDeployedUnits();
+			
+		}
+		
+		
+		
 	}
 
 	@Override

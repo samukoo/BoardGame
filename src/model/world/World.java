@@ -108,7 +108,7 @@ public class World implements iWorld{
 			hexID = selection.hexHit(point.x, point.y);
 			if(hexID != null){
 				setHex(hexID);
-				return hexID;
+				return hexID;  //int[2] esim: int[3,3]
 			}}
 		return null;
 		}

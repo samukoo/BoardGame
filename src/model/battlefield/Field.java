@@ -48,6 +48,15 @@ public class Field extends World{
 						null);
 		}
 	}
+
+	public Unit selectUnit(int[] hex) {
+		
+		for(Unit unit : deployedUnits){
+			if(hex.equals(unit.getXyHex()))
+				return unit;
+		}
+		return null;
+	}
 }
 
 
