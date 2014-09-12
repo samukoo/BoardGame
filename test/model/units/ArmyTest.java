@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
+
 import model.game.Army;
 import model.game.ArmyController;
 import model.game.Player;
@@ -42,6 +45,15 @@ public class ArmyTest {
 		//Then Error.class error is thrown
 		exception.expect(Error.class);
 		player.buyUnit(mockTank);
+	}
+	
+	@Test
+	public void get_army_as_list(){
+		//Given empty army
+		//When
+		List<Unit> res = armyCUT.getArmyAsList();
+		//Then
+		assertNotNull(res);
 	}
 	
 	@Test

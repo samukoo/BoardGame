@@ -1,7 +1,9 @@
 package model.battlefield;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,47 +38,47 @@ public class TestField {
 
 	@Test
 	public void test_selectUnit(){
-		/*
-		List list = new LinkedList();
-		2	List spy = spy(list);
-		3	 
-		4	//Impossible: real method is called so spy.get(0) throws IndexOutOfBoundsException (the list is yet empty)
-		5	when(spy.get(0)).thenReturn("foo");
-		6	 
-		7	//You have to use doReturn() for stubbing
-		8	doReturn("foo").when(spy).get(0);
-		*/
 		//Given test data
-		int targetHex[]={3,3};
-		int tankHex[]={3,2};
-		Tank tank = new Tank("foo");
-		tank.setXyHex(targetHex);
-		testField.orderToField(tank);
+		int[][]testData = {{1,1},{3,3},{4,4}}; //1st tank location 1,1. 2nd tank location 3,3. 3rd tank location 4,4
+		List<Unit>testArmy = new ArrayList<Unit>();	//Luodaan test army
 		
-		//When hex with unit is selected
-		Unit res = testField.selectUnit(targetHex);
+		for(int i=0;i<3;i++){					//Ja test armyyn unitteja
+			testArmy.add(new Tank("foobar"));
+			testArmy.get(i).setXyHex(testData[i]);	//Asetetaan uniteille hex location
+		}
 		
-		//Then result should be like
-		assertNotNull(res);
-		assertEquals("Tank", res.getType());
-		assertEquals("foo", res.getOwner());
+		for(Unit unit : testArmy){				//order units to testField
+			testField.orderToField(unit);
+		}
+		//When
+		int res = testField.selectUnit(testData[2]);	//Locate the unit index, who is in the target hex
+		//Then
+		assertEquals(2, res);
 	}
 
 	@Test
-	public void test_selectUnit_NO_UNIT(){
+	public void test_selectUnit_emptyHex(){
 		//Given test data
-		int targetHex[]={3,3};
-		int tankHex[]={3,2};
-		Tank tank = new Tank("foo");
-		tank.setXyHex(tankHex);  	//tank hex has different coordination than clicked hex
-		testField.orderToField(tank);
-		
-		//When hex without unit is selected
-		Unit res = testField.selectUnit(targetHex);
-		
-		//Then result should be like NULL
+		int[][]testData = {{1,1},{3,3},{4,4}}; //1st tank location 1,1. 2nd tank location 3,3. 3rd tank location 4,4
+		int[]emptyHex = {3,4};
+		List<Unit>testArmy = new ArrayList<Unit>();	//Luodaan test army
+				
+		for(int i=0;i<3;i++){					//Ja test armyyn unitteja
+			testArmy.add(new Tank("foobar"));
+			testArmy.get(i).setXyHex(testData[i]);	//Asetetaan uniteille hex location
+			}
+				
+			for(Unit unit : testArmy){				//order units to testField
+				testField.orderToField(unit);
+			}
+		//When
+		Integer res = testField.selectUnit(emptyHex);	//Locate the unit index, who is in the target hex
+		//Then
 		assertNull(res);
 	}
 	
-	
+	@Test
+	public void test_print_DeployedUnits(){
+		testField.printDeployedUnits();
+	}
 }

@@ -23,10 +23,5 @@ public class ArmyUnitTest {
 		String res = tank.getOwner();
 
 		assertEquals(expected, res);
-		
-		
 	}
-	
-
-
 }

@@ -49,13 +49,22 @@ public class Field extends World{
 		}
 	}
 
-	public Unit selectUnit(int[] hex) {
-		
+	public Integer selectUnit(int[] hex) {
+		int index = 0;
 		for(Unit unit : deployedUnits){
-			if(hex.equals(unit.getXyHex()))
-				return unit;
+			
+			if(hex.equals(unit.getXyHex())){
+				return index;
+			}
+			index++;	
 		}
 		return null;
+	}
+
+	public void moveUnit(int index, int[] destination) {
+		
+		deployedUnits.get(index).setXyHex(destination);
+		
 	}
 }
 

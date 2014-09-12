@@ -27,8 +27,14 @@ public MainController() throws InterruptedException{
 		tb.setEventListener(new EventListener() {
 			
 			@Override
-			public void btnListener(Army army) {
+			public void deployListener(Army army) {
 				bC.setArmy(army);				
+			}
+
+			@Override
+			public void moveListener(boolean isMove) {
+				bC.setMove(isMove);
+				System.out.println("BoardCOntroller says: "+bC.isMove());
 			}
 		});
 		

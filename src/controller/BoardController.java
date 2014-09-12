@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import org.mockito.internal.matchers.NotNull;
+import org.mockito.internal.stubbing.answers.ThrowsException;
 
 import model.battlefield.Field;
 import model.game.Army;
@@ -26,6 +27,8 @@ public class BoardController extends JPanel implements MouseListener{
 	private Army army;
 	private Field field = new Field();
 	private int selectedHex[] = new int[2];
+	boolean move = false;
+	Integer index = null;
 	
 	public BoardController(){
 		
@@ -35,6 +38,7 @@ public class BoardController extends JPanel implements MouseListener{
 		addMouseListener(this);
 	}
 	
+	//piirto
 	public void paint(Graphics g){
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
@@ -43,47 +47,86 @@ public class BoardController extends JPanel implements MouseListener{
 		field.drawWorld(g2d);
 		field.drawUnits(g2d);
 	}
-	
+	//Armeijan purku ja asetus kentalle
 	public void setArmy(Army army){
-		
-		
 		List<Unit>recruits = army.getArmyAsList();	//Puretaan armeija recruiment listaan uniteiksi
-		System.out.println(army.getOwner());
-		recruits.get(0).setXyHex(selectedHex);
-		field.orderToField(!recruits.isEmpty() ? recruits.get(0) : null ); //jos lista ei ole tyhjä, komenna ensimmäinen yksikkö kentälle
-		recruits.remove(0);			//ja poista se listasta
+		
+			recruits.get(0).setXyHex(selectedHex);
+			field.orderToField(!recruits.isEmpty() ? recruits.get(0) : null ); //jos lista ei ole tyhjä, komenna ensimmainen yksikkö kentalle
+			recruits.remove(0);			//ja poista se listasta
 	}
 	
+	//tulostusfunktio
 	public void showArmy(){
 		Iterator<Unit> res = army.getArmyAsList().iterator();
 		while(res.hasNext())
 			System.out.println(res.next().getType());
 	}
 
-	public void updateGame(){
-
+	//valitaan hexa ja sen sisaltama mahdollinen unit
+	private void selectHexContent(MouseEvent e) {
+		
+		if(index==null||!move){
+		selectedHex = field.selectHex(new Point(e.getPoint()));
+			System.out.println("X: " +selectedHex[0] + " Y: " +selectedHex[1]); //debugin takia
+		index = field.selectUnit(selectedHex);
+			System.out.println("index: "+index + " move: " + move);
+		}	
+		if(index!=null&&move){
+			moveUnit(index,new Point(e.getPoint()));
+			setMove(false);
+		}
+		if(index==null&&move){
+			selectedHex = field.selectHex(new Point(e.getPoint()));
+			System.out.println("X: " +selectedHex[0] + " Y: " +selectedHex[1]); //debugin takia
+		index = field.selectUnit(selectedHex);
+			System.out.println("index: "+index);
+		}
 	}
+
+	//Move funktio 
+	public void moveUnit(Integer index, Point point){
+		int[] destHex = field.selectHex(point);
+		field.moveUnit(index, destHex);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Getterit ja setterit
+	
+	public boolean isMove() {
+		return move;
+	}
+
+	public void setMove(boolean move) {
+		this.move = move;
+	}
+	
+	//mouselistener. siirrä omaan luokkaan
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON1){
-		selectedHex = field.selectHex(new Point(e.getPoint()));
-		Unit unit = field.selectUnit(selectedHex);
-		System.out.println("X: " +selectedHex[0] + " Y: " +selectedHex[1]);
-			if(unit!=null){
-				System.out.println("Hex has unit: " + unit.getType() + " owned by: " + unit.getOwner());
-			}
-		}
-		
-		if(e.getButton() == MouseEvent.BUTTON3){
-			field.printDeployedUnits();
+			selectHexContent(e);
 			
 		}
 		
-		
-		
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		

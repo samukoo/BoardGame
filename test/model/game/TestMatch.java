@@ -35,6 +35,20 @@ public class TestMatch {
 	public ExpectedException exception = ExpectedException.none();
 	
 	@Test
+	public void test_init_match(){
+		//Given data
+		String expected = "Sauli";
+		//When
+		Match initMatch = new Match("init");
+		//Then
+		assertEquals(expected, initMatch.getCurrentPlayer().getOwner());
+		//And when
+		initMatch.endTurn();
+		//Then current should not be "expected"
+		assertNotEquals(expected, initMatch.getCurrentPlayer().getOwner());
+	}
+	
+	@Test
 	public void test_Player_tries_exceed_his_points(){
 		//Given
 		testMatch.setPlayers(new Player("foobar"));
