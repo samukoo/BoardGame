@@ -1,35 +1,48 @@
 package controller;
 
 import static org.mockito.Mockito.*;
+
+import java.awt.Point;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
 import model.battlefield.Field;
-import model.units.Tank;
-import model.units.Unit;
-import static org.junit.Assert.*;
+import model.game.Army;
+import model.game.Match;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Spy;
 
 public class TestBoardController {
 
-	BoardController testBoard;
+	private BoardController SUT;
+	private Army army;
+	private Field field;
+	private Match match;
 	
 	@Before
 	public void setUp() throws Exception {
-	testBoard = new BoardController();
+		field = mock(Field.class);
+		army = mock(Army.class);
+		match = mock(Match.class);
+		SUT = new BoardController(army,field,match);
 	}
 
 	@Test
-	@Ignore
 	public void test_moveUnit(){
-		//Given
-		int[][]destination={{3,3},{3,4}}; //[0]=starthex, [1]=endhex 
-
+	Point point = new Point();
+		int[]res={3,3};
+	when(field.selectHex(point)).thenReturn(res);
+	int index=0;
 		
-		
+	int[] result = SUT.moveUnit(index, point);
 	
+	System.out.println(result[1]);
 	}
+
 	
-	
-	
+
+
 }

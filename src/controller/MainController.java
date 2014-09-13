@@ -1,17 +1,21 @@
-package gui;
+package controller;
+
+import gui.EventListener;
+import gui.ToolBar;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
+import model.battlefield.Field;
 import model.game.Army;
-import controller.BoardController;
+import model.game.Match;
 
 public class MainController extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	private BoardController bC = new BoardController();
+	private BoardController bC = new BoardController(new Army(), new Field(), new Match("arg"));
 	private ToolBar tb = new ToolBar();
 	
 public MainController() throws InterruptedException{
@@ -27,14 +31,24 @@ public MainController() throws InterruptedException{
 		tb.setEventListener(new EventListener() {
 			
 			@Override
-			public void deployListener(Army army) {
-				bC.setArmy(army);				
+			public void deployListener() {
+				bC.setArmy();				
 			}
 
 			@Override
 			public void moveListener(boolean isMove) {
 				bC.setMove(isMove);
-				System.out.println("BoardCOntroller says: "+bC.isMove());
+				System.out.println("move: "+bC.isMove());
+			}
+
+			@Override
+			public void turnListener() {
+				bC.match.endTurn();
+			}
+
+			@Override
+			public void buyListener(String unit) {
+				bC.shopUnit(unit);
 			}
 		});
 		

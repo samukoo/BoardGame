@@ -14,23 +14,28 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import org.mockito.internal.matchers.NotNull;
-import org.mockito.internal.stubbing.answers.ThrowsException;
-
 import model.battlefield.Field;
 import model.game.Army;
 import model.game.Match;
+import model.units.Tank;
 import model.units.Unit;
 
 public class BoardController extends JPanel implements MouseListener{
 	
 	private Army army;
-	private Field field = new Field();
+	private Field field;
+	public Match match;
+	
+	
 	private int selectedHex[] = new int[2];
 	boolean move = false;
 	Integer index = null;
 	
-	public BoardController(){
+	public BoardController(Army army, Field field, Match match){
+		this.army = army;
+		this.field = field;
+		this.match = match;
+		
 		
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createEtchedBorder());
@@ -48,11 +53,12 @@ public class BoardController extends JPanel implements MouseListener{
 		field.drawUnits(g2d);
 	}
 	//Armeijan purku ja asetus kentalle
-	public void setArmy(Army army){
-		List<Unit>recruits = army.getArmyAsList();	//Puretaan armeija recruiment listaan uniteiksi
+	public void setArmy(){
+		
+		List<Unit>recruits = match.getCurrentPlayer().getArmy().getArmyAsList();	//Puretaan armeija recruiment listaan uniteiksi
 		
 			recruits.get(0).setXyHex(selectedHex);
-			field.orderToField(!recruits.isEmpty() ? recruits.get(0) : null ); //jos lista ei ole tyhjä, komenna ensimmainen yksikkö kentalle
+			field.orderToField(!recruits.isEmpty() ? recruits.get(0) : null ); //jos lista ei ole tyhjä, komenna ensimmainen yksikko kentalle
 			recruits.remove(0);			//ja poista se listasta
 	}
 	
@@ -67,10 +73,8 @@ public class BoardController extends JPanel implements MouseListener{
 	private void selectHexContent(MouseEvent e) {
 		
 		if(index==null||!move){
-		selectedHex = field.selectHex(new Point(e.getPoint()));
-			System.out.println("X: " +selectedHex[0] + " Y: " +selectedHex[1]); //debugin takia
-		index = field.selectUnit(selectedHex);
-			System.out.println("index: "+index + " move: " + move);
+			selectedHex = field.selectHex(new Point(e.getPoint()));
+			index = field.selectUnit(selectedHex);
 		}	
 		if(index!=null&&move){
 			moveUnit(index,new Point(e.getPoint()));
@@ -78,34 +82,16 @@ public class BoardController extends JPanel implements MouseListener{
 		}
 		if(index==null&&move){
 			selectedHex = field.selectHex(new Point(e.getPoint()));
-			System.out.println("X: " +selectedHex[0] + " Y: " +selectedHex[1]); //debugin takia
-		index = field.selectUnit(selectedHex);
-			System.out.println("index: "+index);
+			index = field.selectUnit(selectedHex);
 		}
 	}
 
 	//Move funktio 
-	public void moveUnit(Integer index, Point point){
+	public int[] moveUnit(Integer index, Point point){
 		int[] destHex = field.selectHex(point);
 		field.moveUnit(index, destHex);
+		return destHex;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//Getterit ja setterit
 	
 	public boolean isMove() {
@@ -148,6 +134,13 @@ public class BoardController extends JPanel implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void shopUnit(String unit){
+		
+		match.shopUnit(new Tank(match.getCurrentPlayer().getOwner()));
+		
 		
 	}
 }

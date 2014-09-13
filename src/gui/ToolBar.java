@@ -47,7 +47,6 @@ public class ToolBar extends JPanel implements ActionListener{
 	private JLabel turnNr;
 	private JTextArea textArea;
 	private EventListener event;
-	private iMatch match;
 	
 	
 	public ToolBar(){
@@ -76,10 +75,9 @@ public class ToolBar extends JPanel implements ActionListener{
 		playerName = new JLabel();
 		turnNr = new JLabel("Turn: 2");
 		turnNr.setFont(new Font("ITALIC", Font.BOLD, 14));
-		match = new Match("Alusta peli");
 		
-		turnNr.setText("Turn: "+match.getTurnNr());
-		playerName.setText("Player " + match.getCurrentPlayer().getOwner() + " has control");
+//		turnNr.setText("Turn: "+match.getTurnNr());
+//		playerName.setText("Player " + match.getCurrentPlayer().getOwner() + " has control");
 		
 		
 		deploy.addActionListener(this);
@@ -97,31 +95,19 @@ public class ToolBar extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == endTurn){
-			match.endTurn();
-			turnNr.setText("Turn: "+match.getTurnNr());
-			playerName.setText("Player " + match.getCurrentPlayer().getOwner() + " has control");
+			event.turnListener();
 		}
 		
 		if(e.getSource() == move){
-			System.out.println("move unit");
 			boolean isMove = true;
 			event.moveListener(isMove);
 		}
 		if(e.getSource() == buy){
-		
 			String unit = unitGroup.getSelection().getActionCommand();
-			if(unit == "Tank"){
-				Tank tank = new Tank(match.getCurrentPlayer().getOwner());
-				match.shopUnit(tank);
-			}
-			if(unit == "Infantry"){
-				Infantry infantry = new Infantry(match.getCurrentPlayer().getOwner());
-				match.shopUnit(infantry);
-			}
+				event.buyListener(unit);
 		}
 		if(e.getSource() == deploy){
-			Army army = match.getCurrentPlayer().getArmy();
-			event.deployListener(army);
+			event.deployListener();
 			}
 		}
 	
