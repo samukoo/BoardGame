@@ -12,6 +12,7 @@ public class Tank extends Unit{
 	private String type = "Tank";
 	private String owner;
 	private static int cost = 2;
+	private static int range = 2;
 	
 	public Tank(String owner){
 	
@@ -56,5 +57,10 @@ public class Tank extends Unit{
 	@Override
 	public String getOwner() {
 		return owner;
+	}
+
+	@Override
+	public int getRange() {
+		return range;
 	}
 }

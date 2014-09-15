@@ -17,24 +17,20 @@ import javax.swing.JPanel;
 import model.battlefield.Field;
 import model.game.Army;
 import model.game.Match;
+import model.units.Infantry;
 import model.units.Tank;
 import model.units.Unit;
+import model.units.UnitTypes;
 
 public class BoardController extends JPanel implements MouseListener{
 	
-	private Army army;
-	private Field field;
-	public Match match;
-	
-	
-	private int selectedHex[] = new int[2];
-	boolean move = false;
-	Integer index = null;
-	
+	public BoardControllerData data = new BoardControllerData(new int[2], false,
+			null);
+
 	public BoardController(Army army, Field field, Match match){
-		this.army = army;
-		this.field = field;
-		this.match = match;
+		this.data.army = army;
+		this.data.field = field;
+		this.data.match = match;
 		
 		
 		setBackground(Color.WHITE);
@@ -49,22 +45,20 @@ public class BoardController extends JPanel implements MouseListener{
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setStroke(new BasicStroke(2));
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		field.drawWorld(g2d);
-		field.drawUnits(g2d);
+		data.field.drawWorld(g2d);
+		data.field.drawUnits(g2d);
 	}
 	//Armeijan purku ja asetus kentalle
 	public void setArmy(){
-		
-		List<Unit>recruits = match.getCurrentPlayer().getArmy().getArmyAsList();	//Puretaan armeija recruiment listaan uniteiksi
-		
-			recruits.get(0).setXyHex(selectedHex);
-			field.orderToField(!recruits.isEmpty() ? recruits.get(0) : null ); //jos lista ei ole tyhjä, komenna ensimmainen yksikko kentalle
+		List<Unit>recruits = data.match.getCurrentPlayer().getArmy().getArmyAsList();	//Puretaan armeija recruiment listaan uniteiksi
+			recruits.get(0).setXyHex(data.selectedHex);
+			data.field.orderToField(!recruits.isEmpty() ? recruits.get(0) : null ); //jos lista ei ole tyhjä, komenna ensimmainen yksikko kentalle
 			recruits.remove(0);			//ja poista se listasta
 	}
 	
 	//tulostusfunktio
 	public void showArmy(){
-		Iterator<Unit> res = army.getArmyAsList().iterator();
+		Iterator<Unit> res = data.army.getArmyAsList().iterator();
 		while(res.hasNext())
 			System.out.println(res.next().getType());
 	}
@@ -72,34 +66,51 @@ public class BoardController extends JPanel implements MouseListener{
 	//valitaan hexa ja sen sisaltama mahdollinen unit
 	private void selectHexContent(MouseEvent e) {
 		
-		if(index==null||!move){
-			selectedHex = field.selectHex(new Point(e.getPoint()));
-			index = field.selectUnit(selectedHex);
+		if(data.index==null||!data.move){
+			data.selectedHex = data.field.selectHex(new Point(e.getPoint()));
+			data.index = data.field.selectUnit(data.selectedHex);
 		}	
-		if(index!=null&&move){
-			moveUnit(index,new Point(e.getPoint()));
+		if(data.index!=null&&data.move){
+			moveUnit(data.index,new Point(e.getPoint()));
 			setMove(false);
 		}
-		if(index==null&&move){
-			selectedHex = field.selectHex(new Point(e.getPoint()));
-			index = field.selectUnit(selectedHex);
+		if(data.index==null&&data.move){
+			data.selectedHex = data.field.selectHex(new Point(e.getPoint()));
+			data.index = data.field.selectUnit(data.selectedHex);
 		}
 	}
 
 	//Move funktio 
-	public int[] moveUnit(Integer index, Point point){
-		int[] destHex = field.selectHex(point);
-		field.moveUnit(index, destHex);
+	public int[] moveUnit(Integer index, Point point){ //Index on valitun unitin index army listassa
+		int[] destHex = data.field.selectHex(point);
+		data.field.moveUnit(index, destHex);
 		return destHex;
 	}
+	
+	public void shopUnit(UnitTypes unit){
+		
+		switch (unit) {
+		case Tank :
+			data.match.shopUnit(new Tank(data.match.getCurrentPlayer().getOwner()));
+			break;
+		
+		case Infantry :
+			data.match.shopUnit(new Infantry(data.match.getCurrentPlayer().getOwner()));
+			break;
+			
+		default:
+			break;
+		}
+	}
+	
 	//Getterit ja setterit
 	
 	public boolean isMove() {
-		return move;
+		return data.move;
 	}
 
 	public void setMove(boolean move) {
-		this.move = move;
+		this.data.move = move;
 	}
 	
 	//mouselistener. siirrä omaan luokkaan
@@ -108,39 +119,24 @@ public class BoardController extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON1){
 			selectHexContent(e);
-			
 		}
-		
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
-	public void shopUnit(String unit){
-		
-		match.shopUnit(new Tank(match.getCurrentPlayer().getOwner()));
-		
-		
-	}
+	
 }

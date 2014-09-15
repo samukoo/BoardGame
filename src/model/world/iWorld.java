@@ -16,6 +16,6 @@ public interface iWorld {
 	public int[] selectHex(Point point);
 	public void setHex(int[] foo);
 	public int[] getHexCenterPosition(int[] hexID);
-	
+	public boolean isNextHex(int[][]locations);
 	
 }

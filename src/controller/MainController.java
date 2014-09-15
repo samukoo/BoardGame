@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import model.battlefield.Field;
 import model.game.Army;
 import model.game.Match;
+import model.units.UnitTypes;
 
 public class MainController extends JFrame{
 
@@ -43,11 +44,11 @@ public MainController() throws InterruptedException{
 
 			@Override
 			public void turnListener() {
-				bC.match.endTurn();
+				bC.data.match.endTurn();
 			}
 
 			@Override
-			public void buyListener(String unit) {
+			public void buyListener(UnitTypes unit) {
 				bC.shopUnit(unit);
 			}
 		});

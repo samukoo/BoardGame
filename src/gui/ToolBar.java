@@ -14,7 +14,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -24,12 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
-import model.game.Army;
-import model.game.Match;
-import model.game.Player;
-import model.game.iMatch;
-import model.units.Infantry;
-import model.units.Tank;
+import model.units.UnitTypes;
 
 
 public class ToolBar extends JPanel implements ActionListener{
@@ -37,6 +31,7 @@ public class ToolBar extends JPanel implements ActionListener{
 	private Color bgColor = Color.lightGray;
 	private JButton deploy;
 	private JButton move;
+	private JButton shoot;
 	private JButton buy;
 	private JButton endTurn;
 	private JRadioButton tank;
@@ -53,6 +48,7 @@ public class ToolBar extends JPanel implements ActionListener{
 		
 		deploy = new JButton("DeployUnit");
 		move = new JButton("MoveUnit");
+		shoot = new JButton("Shoot!");
 		buy = new JButton("Buy Unit");
 		endTurn = new JButton("End Turn");
 		
@@ -76,12 +72,15 @@ public class ToolBar extends JPanel implements ActionListener{
 		turnNr = new JLabel("Turn: 2");
 		turnNr.setFont(new Font("ITALIC", Font.BOLD, 14));
 		
+		
+		//ToDo: listener BC controllerilta mainframelle, joka v‰litt‰‰ current player tiedon t‰nne funktiolle joka p‰ivitt‰‰ infon
 //		turnNr.setText("Turn: "+match.getTurnNr());
 //		playerName.setText("Player " + match.getCurrentPlayer().getOwner() + " has control");
 		
 		
 		deploy.addActionListener(this);
 		move.addActionListener(this);
+		shoot.addActionListener(this);
 		buy.addActionListener(this);
 		endTurn.addActionListener(this);
 		
@@ -102,9 +101,14 @@ public class ToolBar extends JPanel implements ActionListener{
 			boolean isMove = true;
 			event.moveListener(isMove);
 		}
+		if(e.getSource() == shoot){
+			System.out.println("KA-BOOOOM!");
+		}
+		
 		if(e.getSource() == buy){
-			String unit = unitGroup.getSelection().getActionCommand();
-				event.buyListener(unit);
+			UnitTypes unit =  UnitTypes.fromString(unitGroup.getSelection().getActionCommand());	//Treidataan napin getAction String ENUM:KSI (Ei jaksanut p‰ivitt‰‰ java 8:)
+
+			event.buyListener(unit);
 		}
 		if(e.getSource() == deploy){
 			event.deployListener();
@@ -154,6 +158,11 @@ public class ToolBar extends JPanel implements ActionListener{
 		gc.anchor = GridBagConstraints.NORTH;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(buy, gc);
+		
+		gc.gridx = 1;
+		gc.anchor = GridBagConstraints.NORTH;
+		gc.insets = new Insets(0, 5, 0, 5);
+		add(shoot, gc);
 
 ////////Third row ///////////
 		gc.weightx = 1;

@@ -131,6 +131,14 @@ public class World implements iWorld{
 		return res;
 	}
 
+	@Override
+	public boolean isNextHex(int[][]locations) {
+
+		
+		return true;
+		
+	}
+
 	
 
 

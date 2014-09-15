@@ -10,4 +10,5 @@ public interface Actions {
 	public Image getImage();
 	public int[] getImageDimension();
 	public String getOwner();
+	public int getRange();
 }
