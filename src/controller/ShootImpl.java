@@ -3,6 +3,7 @@ package controller;
 import java.util.Random;
 
 import model.battlefield.Field;
+import model.units.Movement;
 import model.units.Unit;
 
 public class ShootImpl implements Shoot{
@@ -30,11 +31,11 @@ public class ShootImpl implements Shoot{
 		 * Ensin simppeli implementaatio: Heitetään noppaa(6). Jos yli tai yhtä kuin 3, osui 
 		 * 
 		 */
+		Movement attackerSpeed = attacker.getSpeed();
+		Movement targetSpeed = target.getSpeed();
+		
 		if(random.nextInt(5)>=3)
 			return true;
-		
-		
-		
 		return false;
 		
 		

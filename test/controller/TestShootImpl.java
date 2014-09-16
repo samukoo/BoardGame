@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.Random;
 
 import model.battlefield.Field;
+import model.units.Movement;
 import model.units.Tank;
 
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class TestShootImpl {
 	private Tank attacker;
 	private Tank target;
 	private ShootImpl SUT;
-	
+	private Random random;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -30,8 +31,20 @@ public class TestShootImpl {
 		attacker = mock(Tank.class);
 		target = mock(Tank.class);
 		field = mock(Field.class);
+		random = mock(Random.class);
 	}
 
+	@Test
+	public void test_calculateHit(){	//testi osumissäännöille
+		when(attacker.getSpeed()).thenReturn(Movement.stationary);
+		when(target.getSpeed()).thenReturn(Movement.stationary);
+		
+		when(random.nextInt(Matchers.anyInt())).thenReturn(3);
+		SUT.calculateHit(attacker, target, random);
+		
+		
+	}
+	
 	@Test
 	public void testShootTarget() {
 		int[][]locations={{3,3},{3,4}};

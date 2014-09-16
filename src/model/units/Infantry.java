@@ -62,5 +62,17 @@ public class Infantry extends Unit {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void calculateUnitSpeed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMovePoints(int movePoints) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

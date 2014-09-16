@@ -11,4 +11,6 @@ public interface Actions {
 	public int[] getImageDimension();
 	public String getOwner();
 	public int getRange();
+	public void calculateUnitSpeed();
+	public void setMovePoints(int movePoints);
 }

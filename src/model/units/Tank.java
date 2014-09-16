@@ -12,7 +12,8 @@ public class Tank extends Unit{
 	private String type = "Tank";
 	private String owner;
 	private static int cost = 2;
-	private static int range = 2;
+	private int movePoints = 1;
+	private static int cannonRange = 2;
 	
 	public Tank(String owner){
 	
@@ -23,6 +24,24 @@ public class Tank extends Unit{
 			img = ImageIO.read(file);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	@Override
+	public void calculateUnitSpeed(){
+		
+		switch (movePoints) {
+		case 2:
+			setSpeed(Movement.stationary);
+			break;
+		case 1:
+			setSpeed(Movement.move);
+			break;
+		case 0:
+			setSpeed(Movement.moveFast);
+			break;
+			
+		default:
+			break;
 		}
 	}
 	
@@ -61,6 +80,11 @@ public class Tank extends Unit{
 
 	@Override
 	public int getRange() {
-		return range;
+		return cannonRange;
+	}
+	
+	@Override
+	public void setMovePoints(int movePoints) {
+		this.movePoints = movePoints;
 	}
 }

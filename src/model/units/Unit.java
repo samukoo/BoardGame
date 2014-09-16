@@ -8,6 +8,7 @@ public abstract class Unit implements Actions{
 	int[]xyHex = new int[2];
 	int[]xyLoc = new int[2];
 	Image img;
+	Movement unitSpeed = Movement.stationary;
 	
 	public Unit(){
 	}
@@ -19,6 +20,14 @@ public abstract class Unit implements Actions{
 		this.xyLoc[1] = xyLoc[1];
 	}
 
+	public void setSpeed(Movement speed){
+		this.unitSpeed = speed;
+	}
+	
+	public Movement getSpeed(){
+		return unitSpeed;
+	}
+	
 	public int[] getXyHex() {
 		return xyHex;
 	}
