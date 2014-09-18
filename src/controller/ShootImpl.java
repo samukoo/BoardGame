@@ -24,6 +24,27 @@ public class ShootImpl implements Shoot{
 	}
 
 	
+	public boolean calculateHit2(Unit attacker, Unit target, Random random) {
+		Movement a = attacker.getSpeed();
+		Movement t = target.getSpeed();
+		
+		int i = a.getHitPer() + t.getHitPer();
+		if(random.nextInt(100)<=i/2)
+			return true;
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public boolean calculateHit(Unit attacker, Unit target, Random random) {
 		/*
 		 * Lasketaan osuma. Liikkuuko oma vaunu? Liikkuuko vastustajan vaunu?
@@ -34,8 +55,6 @@ public class ShootImpl implements Shoot{
 		Movement attackerSpeed = attacker.getSpeed();
 		Movement targetSpeed = target.getSpeed();
 		
-		System.out.println(attackerSpeed);
-		System.out.println(targetSpeed);
 		
 		switch (attackerSpeed) {
 		case stationary:

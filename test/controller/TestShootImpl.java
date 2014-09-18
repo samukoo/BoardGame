@@ -36,6 +36,37 @@ public class TestShootImpl {
 
 	
 	@Test
+	public void test_enumPercentages(){
+		
+		//Given testData
+		Movement[] aData = {Movement.stationary,Movement.move,Movement.moveFast};
+		Movement[] tData = {Movement.stationary,Movement.move,Movement.moveFast};
+		
+		for(Movement att : aData)
+			for(Movement tar : tData){
+				//When unit gets speed
+				when(attacker.getSpeed()).thenReturn(att);
+				when(target.getSpeed()).thenReturn(tar);
+				//And random generator returns positive boundary values
+				when(random.nextInt(100)).thenReturn(((att.getHitPer()+tar.getHitPer())/2)+0);
+				
+//				System.out.println(att.getHitPer() + " " + tar.getHitPer() + " percentage: " + ((att.getHitPer()+tar.getHitPer())/2) + " " + SUT.calculateHit2(attacker,target,random));
+				
+				//Then Attacker get hit
+				assertTrue(SUT.calculateHit2(attacker,target,random));
+				//And when random value goes outside boundary
+				when(random.nextInt(100)).thenReturn(((att.getHitPer()+tar.getHitPer())/2)+1);
+				//Then attacker gets miss
+				assertFalse(SUT.calculateHit2(attacker,target,random));
+		}
+		
+		
+		
+	}
+	
+	
+	
+	@Test
 	public void test_calculateHit(){	//testi osumissäännöille
 		//jos molemmat vaunut ei liiku, osuma 90%
 		//jos attacker move -30%
