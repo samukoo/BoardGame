@@ -34,10 +34,47 @@ public class ShootImpl implements Shoot{
 		Movement attackerSpeed = attacker.getSpeed();
 		Movement targetSpeed = target.getSpeed();
 		
-		if(random.nextInt(5)>=3)
-			return true;
-		return false;
+		System.out.println(attackerSpeed);
+		System.out.println(targetSpeed);
 		
+		switch (attackerSpeed) {
+		case stationary:
+			if(targetSpeed.equals(Movement.stationary) && random.nextInt(100)<=90){
+				return true;
+			}
+			if(targetSpeed.equals(Movement.move) && random.nextInt(100)<=70){
+				return true;
+			}
+			if(targetSpeed.equals(Movement.moveFast) && random.nextInt(100)<=50){
+				return true;
+			}
+			break;
+
+		case move:
+			if(targetSpeed.equals(Movement.stationary) && random.nextInt(100)<=70){
+				return true;
+			}
+			if(targetSpeed.equals(Movement.move) && random.nextInt(100)<=50){
+				return true;
+			}
+			if(targetSpeed.equals(Movement.moveFast) && random.nextInt(100)<=30){
+				return true;
+			}
+			break;
+		
+		case moveFast:
+			if(targetSpeed.equals(Movement.stationary) && random.nextInt(100)<=25){
+				return true;
+			}
+			if(targetSpeed.equals(Movement.move) && random.nextInt(100)<=20){
+				return true;
+			}
+			if(targetSpeed.equals(Movement.moveFast) && random.nextInt(100)<=15){
+				return true;
+			}
+			break;
+		}
+		return false;
 		
 	}
 

@@ -34,15 +34,32 @@ public class TestShootImpl {
 		random = mock(Random.class);
 	}
 
+	
 	@Test
 	public void test_calculateHit(){	//testi osumissäännöille
+		//jos molemmat vaunut ei liiku, osuma 90%
+		//jos attacker move -30%
+		//jos attacker moveFast -50%
+		
 		when(attacker.getSpeed()).thenReturn(Movement.stationary);
 		when(target.getSpeed()).thenReturn(Movement.stationary);
-		
-		when(random.nextInt(Matchers.anyInt())).thenReturn(3);
-		SUT.calculateHit(attacker, target, random);
-		
-		
+		when(random.nextInt(Matchers.anyInt())).thenReturn(91); 
+			assertFalse(SUT.calculateHit(attacker, target, random));
+		when(random.nextInt(Matchers.anyInt())).thenReturn(90);
+			assertTrue(SUT.calculateHit(attacker, target, random));
+
+			when(target.getSpeed()).thenReturn(Movement.move);
+			when(random.nextInt(Matchers.anyInt())).thenReturn(71); 
+				assertFalse(SUT.calculateHit(attacker, target, random));
+			when(random.nextInt(Matchers.anyInt())).thenReturn(70);
+				assertTrue(SUT.calculateHit(attacker, target, random));
+			
+				when(target.getSpeed()).thenReturn(Movement.moveFast);
+				when(random.nextInt(Matchers.anyInt())).thenReturn(51); 
+					assertFalse(SUT.calculateHit(attacker, target, random));
+				when(random.nextInt(Matchers.anyInt())).thenReturn(50);
+					assertTrue(SUT.calculateHit(attacker, target, random));
+	
 	}
 	
 	@Test
@@ -59,20 +76,8 @@ public class TestShootImpl {
 	
 	}
 
-	@Test
-	public void testCalculateHit() {
-		Random random = mock(Random.class);
-		when(random.nextInt(Matchers.anyInt())).thenReturn(3);
-		boolean res = SUT.calculateHit(attacker, target, random);
-		assertTrue(res);
-	}
-	@Test
-	public void testCalculateNOTHit() {
-		Random random = mock(Random.class);
-		when(random.nextInt(Matchers.anyInt())).thenReturn(2);
-		boolean res = SUT.calculateHit(attacker, target, random);
-		assertFalse(res);
-	}
+	
+	
 	
 	
 	@Test
