@@ -1,20 +1,22 @@
 package controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import model.battlefield.Field;
 import model.units.Movement;
 import model.units.Tank;
+import model.units.HitSectors;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Matchers;
-import org.mockito.internal.matchers.Any;
 
 public class TestShootImpl {
 
@@ -36,7 +38,7 @@ public class TestShootImpl {
 
 	
 	@Test
-	public void test_enumPercentages(){
+	public void test_calculateHit(){
 		
 		//Given testData
 		Movement[] aData = {Movement.stationary,Movement.move,Movement.moveFast};
@@ -50,49 +52,15 @@ public class TestShootImpl {
 				//And random generator returns positive boundary values
 				when(random.nextInt(100)).thenReturn(((att.getHitPer()+tar.getHitPer())/2)+0);
 				
-//				System.out.println(att.getHitPer() + " " + tar.getHitPer() + " percentage: " + ((att.getHitPer()+tar.getHitPer())/2) + " " + SUT.calculateHit2(attacker,target,random));
-				
 				//Then Attacker get hit
-				assertTrue(SUT.calculateHit2(attacker,target,random));
+				assertTrue(SUT.calculateHit(attacker,target,random));
 				//And when random value goes outside boundary
 				when(random.nextInt(100)).thenReturn(((att.getHitPer()+tar.getHitPer())/2)+1);
 				//Then attacker gets miss
-				assertFalse(SUT.calculateHit2(attacker,target,random));
+				assertFalse(SUT.calculateHit(attacker,target,random));
 		}
-		
-		
-		
 	}
-	
-	
-	
-	@Test
-	public void test_calculateHit(){	//testi osumissäännöille
-		//jos molemmat vaunut ei liiku, osuma 90%
-		//jos attacker move -30%
-		//jos attacker moveFast -50%
 		
-		when(attacker.getSpeed()).thenReturn(Movement.stationary);
-		when(target.getSpeed()).thenReturn(Movement.stationary);
-		when(random.nextInt(Matchers.anyInt())).thenReturn(91); 
-			assertFalse(SUT.calculateHit(attacker, target, random));
-		when(random.nextInt(Matchers.anyInt())).thenReturn(90);
-			assertTrue(SUT.calculateHit(attacker, target, random));
-
-			when(target.getSpeed()).thenReturn(Movement.move);
-			when(random.nextInt(Matchers.anyInt())).thenReturn(71); 
-				assertFalse(SUT.calculateHit(attacker, target, random));
-			when(random.nextInt(Matchers.anyInt())).thenReturn(70);
-				assertTrue(SUT.calculateHit(attacker, target, random));
-			
-				when(target.getSpeed()).thenReturn(Movement.moveFast);
-				when(random.nextInt(Matchers.anyInt())).thenReturn(51); 
-					assertFalse(SUT.calculateHit(attacker, target, random));
-				when(random.nextInt(Matchers.anyInt())).thenReturn(50);
-					assertTrue(SUT.calculateHit(attacker, target, random));
-	
-	}
-	
 	@Test
 	public void testShootTarget() {
 		int[][]locations={{3,3},{3,4}};
@@ -106,15 +74,28 @@ public class TestShootImpl {
 		assertTrue( res);
 	
 	}
-
-	
-	
-	
 	
 	@Test
-	@Ignore
 	public void testCalculateDamage() {
-		fail("Not yet implemented");
-	}
-
+		List<HitSectors>list=new ArrayList<HitSectors>();
+		for(HitSectors h: HitSectors.values()){
+			list.add(h);
+		}
+		
+		for(int i=0;i<list.size();i++ ){
+			when(random.nextInt(list.size())).thenReturn(i);
+			int res = SUT.calculateDamage(random);
+			System.out.println(res);
+		
+		}
+			
+			
+			
+			
+		
+		
+		
+		
+		}
+		
 }
